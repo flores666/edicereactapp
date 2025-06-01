@@ -17,7 +17,7 @@ export function Menu() {
     <div className="menu-container">
       <Container>
         <Link className="logo" to="/">
-          <img src="/public/logo_big.svg" alt="eDice" />
+          <img src="/logo_big.svg" alt="eDice" />
           <span>eDice</span>
         </Link>
         <div className="play">
