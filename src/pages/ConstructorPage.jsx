@@ -1,7 +1,7 @@
 export default function ConstructorPage() {
     return (
         <>
-            <h1>Конструктор токенов</h1>
+            <h1>Конструктор кенов</h1>
         </>
     );
 }
