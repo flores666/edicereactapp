@@ -4,7 +4,9 @@ import { RegisterFormSchema } from '@/components/Authorization/RegisterForm/sche
 import { ErrorMessage } from '@/components/ErrorMessage';
 import { Button } from '@/components/Button/Button.js';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { authRegister } from '@/services/authService';
 import { useForm } from 'react-hook-form';
+import { omit } from 'lodash';
 
 import '@/components/Authorization/AuthorizationForm.css';
 
@@ -17,8 +19,10 @@ export function RegisterForm() {
     resolver: yupResolver(RegisterFormSchema),
   });
 
-  const onSubmit = (data: TRegisterForm) => {
-    console.log('Форма отправлена:', data);
+  const onSubmit = async (data: TRegisterForm) => {
+    const authData = omit(data, 'passwordConfirm');
+    const result = await authRegister(authData);
+    console.log('Форма отправлена:', result);
   };
 
   return (
@@ -28,12 +32,12 @@ export function RegisterForm() {
       </span>
       <div className="form-group">
         <div className="form-label-group">
-          <label htmlFor="email" data-required="true">
+          <label htmlFor="login" data-required="true">
             Email
           </label>
-          <ErrorMessage name="email" errors={errors} />
+          <ErrorMessage name="login" errors={errors} />
         </div>
-        <input id="email" placeholder="Введите email" {...register('email')} />
+        <input id="login" placeholder="Введите email" {...register('login')} />
         <small>Будет использоваться как логин</small>
       </div>
 
