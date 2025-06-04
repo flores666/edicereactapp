@@ -1,4 +1,4 @@
-import { useTitle } from '@/Hooks/useTitle';
+import { useTitle } from '@/hooks/useTitle';
 
 export function HomePage() {
   useTitle('eDice - платформа для проведения настольных игр');

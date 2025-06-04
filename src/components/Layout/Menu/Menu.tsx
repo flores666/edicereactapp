@@ -1,7 +1,7 @@
 import { MiniProfile } from '@/components/Layout/MiniProfile/MiniProfile';
 import { Container } from '@/components/Layout/Container/Container';
 import { Button } from '@/components/Button/Button';
-import { useInput } from '@/Hooks/useInput';
+import { useInput } from '@/hooks/useInput';
 import { Link } from 'react-router-dom';
 
 import '@/components/Layout/Menu/Menu.css';
