@@ -1,9 +1,10 @@
-import type { TLoginForm } from '@/components/Authorization/LoginForm/type';
+import type { TLoginForm } from '@/models/Auth';
 
 import { LoginFormSchema } from '@/components/Authorization/LoginForm/schema';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button } from '@/components/Button/Button';
+import { useAuthActions } from '@/providers/Auth';
 import { useForm } from 'react-hook-form';
 
 import '@/components/Authorization/AuthorizationForm.css';
@@ -17,23 +18,21 @@ export function LoginForm() {
     resolver: yupResolver(LoginFormSchema),
   });
 
-  const onSubmit = (data: TLoginForm) => {
-    console.log('Форма отправлена:', data);
-  };
+  const { authLogin } = useAuthActions();
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="card">
+    <form onSubmit={handleSubmit(authLogin)} className="card">
       <span className="title">
         <h1>Войти в аккаунт</h1>
       </span>
       <div className="form-group">
         <div className="form-label-group">
-          <label htmlFor="email" data-required="true">
+          <label htmlFor="login" data-required="true">
             Email
           </label>
-          <ErrorMessage name="email" errors={errors} />
+          <ErrorMessage name="login" errors={errors} />
         </div>
-        <input id="email" placeholder="Введите email" {...register('email')} />
+        <input id="login" placeholder="Введите email" {...register('login')} />
       </div>
 
       <div className="form-group">

@@ -1,12 +1,11 @@
-import type { TRegisterForm } from '@/components/Authorization/RegisterForm/type';
+import type { TRegisterForm } from '@/models/Auth';
 
 import { RegisterFormSchema } from '@/components/Authorization/RegisterForm/schema';
 import { ErrorMessage } from '@/components/ErrorMessage';
-import { Button } from '@/components/Button/Button.js';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { authRegister } from '@/services/authService';
+import { Button } from '@/components/Button/Button';
+import { useAuthActions } from '@/providers/Auth';
 import { useForm } from 'react-hook-form';
-import { omit } from 'lodash';
 
 import '@/components/Authorization/AuthorizationForm.css';
 
@@ -19,14 +18,10 @@ export function RegisterForm() {
     resolver: yupResolver(RegisterFormSchema),
   });
 
-  const onSubmit = async (data: TRegisterForm) => {
-    const authData = omit(data, 'passwordConfirm');
-    const result = await authRegister(authData);
-    console.log('Форма отправлена:', result);
-  };
+  const { authRegister } = useAuthActions();
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="card">
+    <form onSubmit={handleSubmit(authRegister)} className="card">
       <span className="title">
         <h1>Создать аккаунт</h1>
       </span>

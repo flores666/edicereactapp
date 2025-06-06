@@ -20,6 +20,10 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  height: 100%;
+}
+.navigation-container ul li:last-child {
+  margin-top: auto;
 }
 .navigation-container li {
   border-radius: 6px;
