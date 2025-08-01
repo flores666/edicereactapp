@@ -8,6 +8,8 @@ import {useAuthActions} from '@/providers/Auth';
 import {useForm} from 'react-hook-form';
 
 import '@/components/Authorization/AuthorizationForm.css';
+import {useNotifications} from "@/providers/Notifications/NotificationsProvider.tsx";
+import {NotificationTypes} from "@/providers/Notifications/NotificationIcons.tsx";
 
 export function RegisterForm() {
     const {
@@ -19,7 +21,8 @@ export function RegisterForm() {
     });
 
     const {authRegister} = useAuthActions();
-
+    const {addNotification} = useNotifications();
+    
     return (
         <form onSubmit={handleSubmit(authRegister)} className="card">
             <span className="title">
@@ -79,6 +82,9 @@ export function RegisterForm() {
 
             <Button type="submit" color="white">
                 Зарегистрироваться
+            </Button>
+            <Button type="button" color="white" onClick={() => addNotification('Тестовое уведомление', NotificationTypes.Success)}>
+                Уведомление
             </Button>
         </form>
     );

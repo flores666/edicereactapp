@@ -18,6 +18,7 @@ body,
 }
 body {
   min-height: 100%;
+  overflow: hidden;
 }
 h1,
 h2,

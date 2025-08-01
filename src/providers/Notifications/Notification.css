@@ -1,37 +1,96 @@
 .notifications-container {
   position: absolute;
   top: 0;
-  right: 0;
+  right: 1rem;
   z-index: 1000;
-  margin-top: 5rem;
-  /*    opacity: 0;
-    
-    .visible {
-        opacity: 1;
-    }
-    */
+  margin-top: 4.7rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column-reverse;
 }
 .notifications-container .notification {
-  padding: 0 0.5rem;
-  margin: 0 1rem 1rem;
   min-height: 3.5rem;
   min-width: 18rem;
   border-width: 1px;
   background-color: #18181b;
   color: #d4d4d8;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  overflow: hidden;
+  cursor: pointer;
+}
+@keyframes nudge-right {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(5px);
+  }
+  40% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.notifications-container .notification.nudge:not(.dragging) {
+  animation: nudge-right 1.3s ease;
+}
+.notifications-container .notification:active {
+  cursor: grabbing;
+}
+.notifications-container .notification.opened .content {
+  -webkit-user-select: auto;
+  /* Safari */
+  -moz-user-select: auto;
+  /* Firefox */
+  -ms-user-select: auto;
+  /* IE 10+ */
+  user-select: auto;
+  /* Standard */
+}
+.notifications-container .notification.visible {
+  opacity: 1;
+}
+.notifications-container .notification .content {
   display: flex;
+  padding: 0.5rem;
   flex-direction: row;
   align-items: center;
   gap: 0.6rem;
+  -webkit-user-select: none;
+  /* Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE 10+ */
+  user-select: none;
+  /* Standard */
 }
-.notifications-container .notification .notification-icon {
+.notifications-container .notification .content .notification-icon {
   width: 2.5rem;
   height: 2.5rem;
   padding: 4px;
   background-color: black;
 }
-.notifications-container .notification .notification-icon img {
+.notifications-container .notification .content .notification-icon img {
   width: 100%;
   height: 100%;
+}
+.notifications-container .notification .bar {
+  height: 0.1rem;
+  width: 100%;
+  background-color: #d4d4d8;
+  border-radius: 20px;
+  transform-origin: left;
+  animation: shrink linear forwards;
+}
+@keyframes shrink {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
 }
 /*# sourceMappingURL=Notification.css.map */

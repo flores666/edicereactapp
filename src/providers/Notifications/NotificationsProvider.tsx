@@ -28,7 +28,7 @@ export function NotificationsProvider({children}: { children: ReactNode }) {
             {children}
             <div className="notifications-container">
                 {notifications.map((item) =>
-                    <NotificationItem key={item.id} message={item.message} icon={item.type}/>
+                    <NotificationItem key={item.id} message={item.message} icon={item.type} onClose={() => removeNotification(item.id)}/>
                 )}
             </div>
         </NotificationContext.Provider>
