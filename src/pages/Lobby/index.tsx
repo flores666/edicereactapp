@@ -1,3 +1,6 @@
+import {useTitle} from "@/hooks/useTitle.ts";
+
 export function LobbyPage() {
-  return <h1>Конструктор игры</h1>;
+    useTitle('eDice - Лобби');
+    return <h1>Выберите или создайте комнату</h1>;
 }

@@ -1,3 +1,6 @@
+import {useTitle} from "@/hooks/useTitle.ts";
+
 export function NotFoundPage() {
-  return <div>Страница не найдена...</div>;
+    useTitle('eDice - Платформа для проведения настольных игр');
+    return <div>Страница не найдена...</div>;
 }

@@ -1,3 +1,7 @@
+import {useTitle} from "@/hooks/useTitle.ts";
+
 export function ConstructorPage() {
-  return <h1>Конструктор токенов</h1>;
+    useTitle('eDice - Конструктор');
+    
+    return <h1>Конструктор</h1>;
 }
