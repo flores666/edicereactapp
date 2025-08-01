@@ -1,18 +1,13 @@
 import type {NotificationType} from "@/providers/Notifications/NotificationIcons.tsx";
-import React, {createContext, type ReactNode, useContext} from "react";
+import React, {type ReactNode, useContext} from "react";
 import {NotificationItem} from "@/providers/Notifications/NotificationItem.tsx";
+import {NotificationContext} from "@/providers/Notifications/NotificationContext.tsx";
 
 interface INotification {
     id: number;
     message: string;
     type: NotificationType;
 }
-
-interface INotificationsContext {
-    addNotification: (message: string, type: NotificationType) => void;
-}
-
-const NotificationContext = createContext<INotificationsContext | undefined>(undefined);
 
 export function NotificationsProvider({children}: { children: ReactNode }) {
     const [notifications, setNotifications] = React.useState<INotification[]>([])
