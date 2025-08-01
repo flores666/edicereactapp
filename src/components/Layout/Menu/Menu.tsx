@@ -5,6 +5,7 @@ import {useInput} from '@/hooks/useInput';
 import {Link} from 'react-router-dom';
 
 import '@/components/Layout/Menu/Menu.css';
+import {ButtonColors} from "@/components/Button/ButtonColors.tsx";
 
 export function Menu() {
     const input = useInput('');
@@ -22,7 +23,7 @@ export function Menu() {
                 </Link>
                 <div className="play">
                     <input className="secondary" placeholder="Введите ключ" {...input} />
-                    <Button color={'black'} onClick={connectToLobby}>
+                    <Button color={ButtonColors.Black} onClick={connectToLobby}>
                         Подключиться
                     </Button>
                 </div>

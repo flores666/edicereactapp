@@ -4,10 +4,11 @@ import {RegisterFormSchema} from '@/components/Authorization/RegisterForm/schema
 import {ErrorMessage} from '@/components/ErrorMessage';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {Button} from '@/components/Button/Button';
-import {useAuthActions} from '@/providers/Auth';
+import {useAuth} from '@/providers/Auth';
 import {useForm} from 'react-hook-form';
 
 import '@/components/Authorization/AuthorizationForm.css';
+import {ButtonColors} from "@/components/Button/ButtonColors.tsx";
 
 export function RegisterForm() {
     const {
@@ -18,10 +19,10 @@ export function RegisterForm() {
         resolver: yupResolver(RegisterFormSchema),
     });
 
-    const {authRegister} = useAuthActions();
+    const auth = useAuth();
     
     return (
-        <form onSubmit={handleSubmit(authRegister)} className="card">
+        <form onSubmit={handleSubmit(auth.actions.authRegister)} className="card">
             <span className="title">
                 <h1>Создать аккаунт</h1>
             </span>
@@ -77,8 +78,8 @@ export function RegisterForm() {
                 />
             </div>
 
-            <Button type="submit" color="white">
-                Зарегистрироваться
+            <Button type="submit" color={ButtonColors.White}>
+                {auth.isLoading ? 'Загрузка...' : 'Зарегистрироваться'}
             </Button>
         </form>
     );
