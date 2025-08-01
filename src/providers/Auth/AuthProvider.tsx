@@ -6,8 +6,10 @@ import {useToken, useUser, useUserActions, useUserStore} from '@/store/User';
 import {authLogin, authRegister} from '@/services/authService';
 import {AuthContext} from '@/providers/Auth/AuthContext';
 import {useEffect, useState} from 'react';
-import {isNullOrEmpty} from '@/utils';
+import {getResponseFromAxiosError, isNullOrEmpty} from '@/utils';
 import {omit} from 'lodash';
+import {useNotifications} from '../Notifications/NotificationsProvider';
+import {NotificationTypes} from "@/providers/Notifications/NotificationIcons.tsx";
 
 interface IAuthProvider {
     children: ReactNode;
@@ -16,23 +18,36 @@ interface IAuthProvider {
 export function AuthProvider({children}: IAuthProvider) {
     const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
     const user = useUser();
     const token = useToken();
     const {setUser, setToken} = useUserActions();
+    const {addNotification} = useNotifications();
 
     const login = async (data: TLoginData) => {
         try {
             setIsLoading(true);
-            console.log('data ', data);
             const result = await authLogin(data);
-            if (isNullOrEmpty(result.data)) throw new Error('Ошибка авторизации');
+            
+            if (result.isSuccess) {
+                if (isNullOrEmpty(result.data)) throw new Error('Ошибка авторизации');
 
-            setToken(result.data);
-            setUser({login: 'test'});
-            console.log('Форма отправлена: ', result.data);
+                setIsSuccess(true);
+                
+                setToken(result.data);
+                setUser({login: 'test'});
+
+                addNotification(result.message ?? '', NotificationTypes.Success);
+            } else {
+                setIsSuccess(false);
+                addNotification(result.message ?? '', NotificationTypes.Error);
+            }
         } catch (error) {
-            console.log(error);
+            setIsSuccess(false);
+
+            let response = getResponseFromAxiosError(error);
+            addNotification(response.message, NotificationTypes.Error);
         } finally {
             setIsLoading(false);
         }
@@ -43,9 +58,19 @@ export function AuthProvider({children}: IAuthProvider) {
             setIsLoading(true);
             const authData = omit(data, 'passwordConfirm');
             const result = await authRegister(authData);
-            console.log('Форма отправлена: ', result);
+
+            if (result.isSuccess) {
+                setIsSuccess(true);
+                addNotification(result.message ?? '', NotificationTypes.Success);
+            } else {
+                setIsSuccess(false);
+                addNotification(result.message ?? '', NotificationTypes.Error);
+            }
         } catch (error) {
-            console.log(error);
+            setIsSuccess(false);
+            
+            let response = getResponseFromAxiosError(error);
+            addNotification(response.message, NotificationTypes.Error);
         } finally {
             setIsLoading(false);
         }
@@ -75,6 +100,7 @@ export function AuthProvider({children}: IAuthProvider) {
                 token,
                 isLoading,
                 isAuthorized,
+                isSuccess,
                 actions: {
                     authLogin: login,
                     authRegister: register,

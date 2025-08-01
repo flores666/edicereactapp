@@ -9,10 +9,10 @@ import {NotificationsProvider} from "@/providers/Notifications/NotificationsProv
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <AuthProvider>
-            <NotificationsProvider>
+        <NotificationsProvider>
+            <AuthProvider>
                 <RouterProvider router={router}/>
-            </NotificationsProvider>
-        </AuthProvider>
+            </AuthProvider>
+        </NotificationsProvider>
     </StrictMode>
 );

@@ -10,7 +10,8 @@
 
     .notification {
         min-height: 3.5rem;
-        min-width: 18rem;
+        max-height: 10rem;
+        width: 20rem;
         border-width: 1px;
         background-color: #18181b;
         color: rgb(212 212 216);
@@ -48,7 +49,8 @@
         }
 
         .content {
-            display: flex;
+            display: grid;
+            grid-template-columns: 2.5rem auto;
             padding: 0.5rem;
             flex-direction: row;
             align-items: center;

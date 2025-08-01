@@ -9,6 +9,7 @@ interface IAuthContext {
     token: string | null;
     isLoading: boolean;
     isAuthorized: boolean;
+    isSuccess: boolean;
     actions: {
         authLogin: (data: TLoginData) => void;
         authRegister: (data: TRegisterData) => void;
@@ -21,6 +22,7 @@ export const AuthContext = createContext<IAuthContext>({
     token: null,
     isLoading: false,
     isAuthorized: false,
+    isSuccess: false,
     actions: {
         authLogin: () => {
         },
