@@ -15,7 +15,7 @@
   background-color: #18181b;
   color: #d4d4d8;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.25s ease;
   overflow: hidden;
   cursor: pointer;
 }

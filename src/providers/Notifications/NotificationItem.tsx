@@ -18,7 +18,7 @@ export function NotificationItem(props: INotificationProps) {
     const ref = React.useRef<HTMLDivElement>(null);
     const startX = React.useRef(0);
 
-    const timeAlive = 3000;
+    const timeAlive = 4000;
     const timerIdRef = React.useRef<NodeJS.Timeout | null>(null);
     
     useEffect(() => {
@@ -87,6 +87,12 @@ export function NotificationItem(props: INotificationProps) {
         }
     };
 
+    function getOpacityPercent(x: number): number {
+        x = Math.max(0, Math.min(200, x));
+        const ratio = x / 200;
+        return Math.round(100 * Math.pow(1 - ratio, 2));
+    }
+
     return (
         <div
             ref={ref}
@@ -99,10 +105,9 @@ export function NotificationItem(props: INotificationProps) {
             onMouseLeave={handleMouseLeave}
             style={{
                 transform: `translateX(${dragX}px)`,
-                opacity: visible ? 1 : 0,
+                opacity: visible ? (dragX / 100 > 0 ? `${getOpacityPercent(dragX)}%` : 1) : 0,
                 touchAction: 'pan-y',
-            }}
-        >
+            }}>
             <div className="content">
                 <div className="notification-icon">
                     <img draggable="false" src={NotificationIcons[props.icon]} alt=""/>
