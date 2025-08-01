@@ -10,17 +10,25 @@ import {useForm} from 'react-hook-form';
 import '@/components/Authorization/AuthorizationForm.css';
 import {ButtonColors} from "@/components/Button/ButtonColors.tsx";
 import {ButtonStates} from "@/components/Button/ButtonStates.tsx";
+import {useEffect} from "react";
 
 export function RegisterForm() {
     const {
         register,
         handleSubmit,
         formState: {errors},
+        reset
     } = useForm<TRegisterForm>({
         resolver: yupResolver(RegisterFormSchema),
     });
 
     const auth = useAuth();
+
+    useEffect(() => {
+        if (auth.isSuccess) {
+            reset();
+        }
+    }, [auth.isSuccess, reset]);
 
     return (
         <form onSubmit={handleSubmit(auth.actions.authRegister)} className="card">
