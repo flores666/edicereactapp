@@ -4,11 +4,12 @@ import {LoginFormSchema} from '@/components/Authorization/LoginForm/schema';
 import {ErrorMessage} from '@/components/ErrorMessage';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {Button} from '@/components/Button/Button';
-import {useAuthActions} from '@/providers/Auth';
+import {useAuth} from '@/providers/Auth';
 import {useForm} from 'react-hook-form';
 
 import '@/components/Authorization/AuthorizationForm.css';
 import {ButtonColors} from "@/components/Button/ButtonColors.tsx";
+import {ButtonStates} from "@/components/Button/ButtonStates.tsx";
 
 export function LoginForm() {
     const {
@@ -19,13 +20,13 @@ export function LoginForm() {
         resolver: yupResolver(LoginFormSchema),
     });
 
-    const {authLogin} = useAuthActions();
+    const auth = useAuth();
 
     return (
-        <form onSubmit={handleSubmit(authLogin)} className="card">
-      <span className="title">
-        <h1>Войти в аккаунт</h1>
-      </span>
+        <form onSubmit={handleSubmit(auth.actions.authLogin)} className="card">
+            <span className="title">
+                <h1>Войти в аккаунт</h1>
+            </span>
             <div className="form-group">
                 <div className="form-label-group">
                     <label htmlFor="login" data-required="true">
@@ -51,8 +52,15 @@ export function LoginForm() {
                 />
             </div>
 
-            <Button type="submit" color={ButtonColors.White}>
-                Войти
+            <Button
+                type="submit"
+                color={ButtonColors.White}
+                state={auth.isLoading ? ButtonStates.Disabled : ButtonStates.Active}
+                style={{
+                    width: '100%',
+                    marginTop: '1rem'
+                }}>
+                {auth.isLoading ? 'Загрузка...' : 'Войти'}
             </Button>
         </form>
     );

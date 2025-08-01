@@ -8,17 +8,66 @@ button.black {
   border-radius: 8px;
   color: #d4d4d8;
 }
+button.black.disabled {
+  background-color: black;
+  color: #757575;
+  -webkit-user-select: none;
+  /* Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE 10+ */
+  user-select: none;
+  /* Standard */
+  cursor: default;
+  pointer-events: none;
+}
 button.black:hover {
   background-color: rgba(79, 79, 79, 0.56);
   transition: background-color 0.3s ease;
 }
 button.white {
-  background-color: white;
   color: black;
+  background-color: white;
+  -webkit-user-select: auto;
+  /* Safari */
+  -moz-user-select: auto;
+  /* Firefox */
+  -ms-user-select: auto;
+  /* IE 10+ */
+  user-select: auto;
+  /* Standard */
+}
+button.white.disabled {
+  background-color: #c3c3c3;
+  -webkit-user-select: none;
+  /* Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE 10+ */
+  user-select: none;
+  /* Standard */
+  cursor: default;
+  pointer-events: none;
 }
 button.gray {
   background-color: #18181b;
   color: #d4d4d8;
+}
+button.gray.disabled {
+  background-color: black;
+  color: #757575;
+  -webkit-user-select: none;
+  /* Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE 10+ */
+  user-select: none;
+  /* Standard */
+  cursor: default;
+  pointer-events: none;
 }
 button.gray:hover {
   background-color: black;

@@ -1,31 +1,67 @@
 button {
-  padding: 0 1rem;
-  font-weight: 500;
-  border-width: thin;
-  
-  &.black {
-    background-color: black;
-    border-radius: 8px;
-    color: rgb(212 212 216);
-    
-    &:hover {
-      background-color: rgba(79, 79, 79, 0.56);
-      transition: background-color 0.3s ease;
-    }
-  }
-  
-  &.white {
-    background-color: white;
-    color: black;
-  }
-  
-  &.gray {
-    background-color: #18181b;
-    color: rgb(212 212 216);
+    padding: 0 1rem;
+    font-weight: 500;
+    border-width: thin;
 
-    &:hover {
-      background-color: black;
-      transition: background-color 0.3s ease;
+    &.black {
+        background-color: black;
+        border-radius: 8px;
+        color: rgb(212 212 216);
+
+        &.disabled {
+            background-color: black;
+            color: rgb(117, 117, 117);
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE 10+ */
+            user-select: none; /* Standard */
+            cursor: default;
+            pointer-events: none;
+        }
+        
+        &:hover {
+            background-color: rgba(79, 79, 79, 0.56);
+            transition: background-color 0.3s ease;
+        }
     }
-  }
+
+    &.white {
+        color: black;
+        background-color: white;
+        -webkit-user-select: auto; /* Safari */
+        -moz-user-select: auto; /* Firefox */
+        -ms-user-select: auto; /* IE 10+ */
+        user-select: auto; /* Standard */
+        
+        &.disabled {
+            background-color: #c3c3c3;
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE 10+ */
+            user-select: none; /* Standard */
+            cursor: default;
+            pointer-events: none;
+        }
+    }
+
+    &.gray {
+        background-color: #18181b;
+        color: rgb(212 212 216);
+
+        &.disabled {
+            background-color: black;
+            color: rgb(117, 117, 117);
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE 10+ */
+            user-select: none; /* Standard */
+            cursor: default;
+            pointer-events: none;
+        }
+        
+        &:hover {
+            background-color: black;
+            transition: background-color 0.3s ease;
+        }
+    }
 }

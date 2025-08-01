@@ -9,6 +9,7 @@ import {useForm} from 'react-hook-form';
 
 import '@/components/Authorization/AuthorizationForm.css';
 import {ButtonColors} from "@/components/Button/ButtonColors.tsx";
+import {ButtonStates} from "@/components/Button/ButtonStates.tsx";
 
 export function RegisterForm() {
     const {
@@ -20,7 +21,7 @@ export function RegisterForm() {
     });
 
     const auth = useAuth();
-    
+
     return (
         <form onSubmit={handleSubmit(auth.actions.authRegister)} className="card">
             <span className="title">
@@ -78,7 +79,14 @@ export function RegisterForm() {
                 />
             </div>
 
-            <Button type="submit" color={ButtonColors.White}>
+            <Button
+                type="submit"
+                color={ButtonColors.White}
+                state={auth.isLoading ? ButtonStates.Disabled : ButtonStates.Active}
+                style={{
+                    width: '100%',
+                    marginTop: '1rem'
+                }}>
                 {auth.isLoading ? 'Загрузка...' : 'Зарегистрироваться'}
             </Button>
         </form>
