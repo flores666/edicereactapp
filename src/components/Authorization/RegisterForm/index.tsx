@@ -79,7 +79,7 @@ export function RegisterForm() {
 
             <Button type="submit" color="white">
                 Зарегистрироваться
-            </Button>`
+            </Button>
         </form>
     );
 }
