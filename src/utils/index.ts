@@ -69,3 +69,49 @@ export function parseUserFromJwt(jwt: string): TUser | null {
         return null;
     }
 }
+
+interface CookieOptions {
+    days?: number;
+    path?: string;
+    domain?: string;
+    secure?: boolean;
+    sameSite?: "Strict" | "Lax" | "None";
+    // httpOnly — только для серверной установки, браузер его проигнорирует
+    httpOnly?: boolean;
+}
+
+export function setCookie(
+    name: string,
+    value: string,
+    options: CookieOptions = {}
+) {
+    let cookieStr = `${encodeURIComponent(name)}=${encodeURIComponent(value)}`;
+
+    if (options.days) {
+        const date = new Date();
+        date.setTime(date.getTime() + options.days * 24 * 60 * 60 * 1000);
+        cookieStr += `; expires=${date.toUTCString()}`;
+    }
+
+    cookieStr += `; path=${options.path || "/"}`;
+
+    if (options.domain) {
+        cookieStr += `; domain=${options.domain}`;
+    }
+
+    // Установка Secure автоматически, если сайт открыт по HTTPS
+    const isHttps = window.location.protocol === "https:";
+    if (options.secure ?? isHttps) {
+        cookieStr += `; secure`;
+    }
+
+    if (options.sameSite) {
+        cookieStr += `; samesite=${options.sameSite}`;
+    }
+
+    if (options.httpOnly) {
+        console.warn("httpOnly нельзя установить из браузера — игнорируется.");
+    }
+
+    document.cookie = cookieStr;
+}
