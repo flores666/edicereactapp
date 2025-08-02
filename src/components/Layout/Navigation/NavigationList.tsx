@@ -1,29 +1,33 @@
-import type { TMenuItems } from '@/components/Layout/Navigation/type';
+import type {TMenuItems} from '@/components/Layout/Navigation/type';
 
-import { NavigationItem } from '@/components/Layout/Navigation/NavigationItem';
-import { useAuthActions } from '@/providers/Auth';
-import { Link } from 'react-router-dom';
+import {NavigationItem} from '@/components/Layout/Navigation/NavigationItem';
+import {useAuth} from '@/providers/Auth';
+import {Link} from 'react-router-dom';
 
 interface INavigationListProps {
-  items: TMenuItems;
+    items: TMenuItems;
 }
 
-export function NavigationList({ items }: INavigationListProps) {
-  const { authLogout } = useAuthActions();
-
-  return (
-    <ul>
-      {items.map((item) => (
-        <NavigationItem key={item.href} item={item} />
-      ))}
-      <li>
-        <Link to="/" onClick={authLogout}>
-          <span>
-            <img src="src/assets/templateIcon.svg" alt="icon" />
-          </span>
-          <span>Выход</span>
-        </Link>
-      </li>
-    </ul>
-  );
+export function NavigationList({items}: INavigationListProps) {
+    const auth = useAuth();
+    
+    const onClick = () => {
+        if (auth.isAuthorized) auth.actions.authLogout()
+    }
+    
+    return (
+        <ul>
+            {items.map((item) => (
+                <NavigationItem key={item.href} item={item}/>
+            ))}
+            <li>
+                <Link to={auth.isAuthorized ? '' : '/login'} onClick={onClick}>
+                    <span>
+                        <img src="src/assets/templateIcon.svg" alt="icon"/>
+                    </span>
+                    <span>{auth.isAuthorized ? 'Выйти' : 'Войти'}</span>
+                </Link>
+            </li>
+        </ul>
+    );
 }
