@@ -14,6 +14,7 @@ import {useNotifications} from "@/providers/Notifications/NotificationsProvider.
 import {NotificationTypes} from "@/providers/Notifications/NotificationIcons.tsx";
 import {isNullOrEmpty, parseUserFromJwt} from "@/utils";
 import {useUserActions} from "@/store/User";
+import {useNavigate, useSearchParams} from 'react-router-dom';
 
 export function LoginForm() {
     const {
@@ -27,6 +28,8 @@ export function LoginForm() {
     const auth = useAuth();
     const {addNotification} = useNotifications();
     const {setUser, setToken} = useUserActions();
+    const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
     
     const onSubmit = async (data: TLoginForm) => {
         const result = await auth.actions.authLogin(data);
@@ -37,6 +40,7 @@ export function LoginForm() {
             if (user) {
                 setToken(result.data.accessToken);
                 setUser(user);
+                navigate(searchParams.get('returnUrl') ?? '/');
             } else {
                 addNotification('Не удалось распознать пользователя', NotificationTypes.Error);
             }
