@@ -6,7 +6,7 @@ import {useToken, useUser, useUserActions, useUserStore} from '@/store/User';
 import {authLogin, authRegister} from '@/services/authService';
 import {AuthContext} from '@/providers/Auth/AuthContext';
 import {useEffect, useState} from 'react';
-import {getResponseFromAxiosError, isNullOrEmpty} from '@/utils';
+import {getResponseFromAxiosError, isNullOrEmpty, parseUserFromJwt} from '@/utils';
 import {omit} from 'lodash';
 import {useNotifications} from '../Notifications/NotificationsProvider';
 import {NotificationTypes} from "@/providers/Notifications/NotificationIcons.tsx";
@@ -26,54 +26,66 @@ export function AuthProvider({children}: IAuthProvider) {
     const {addNotification} = useNotifications();
 
     const login = async (data: TLoginData) => {
+        setIsLoading(true);
+        setIsSuccess(false);
+
         try {
-            setIsLoading(true);
             const result = await authLogin(data);
-            
-            if (result.isSuccess) {
-                if (isNullOrEmpty(result.data)) throw new Error('Ошибка авторизации');
 
-                setIsSuccess(true);
-                
-                setToken(result.data);
-                setUser({login: 'test'});
-
-                addNotification(result.message ?? '', NotificationTypes.Success);
-            } else {
-                setIsSuccess(false);
-                addNotification(result.message ?? '', NotificationTypes.Error);
+            if (!result.isSuccess || isNullOrEmpty(result.data)) {
+                handleError(result.message ?? 'Ошибка авторизации');
+                return;
             }
-        } catch (error) {
-            setIsSuccess(false);
 
-            let response = getResponseFromAxiosError(error);
+            handleLoginSuccess(result.data.accessToken);
+        } catch (error) {
+            const response = getResponseFromAxiosError(error);
             addNotification(response.message, NotificationTypes.Error);
         } finally {
             setIsLoading(false);
         }
     };
 
+    const handleLoginSuccess = (accessToken: string) => {
+        setToken(accessToken);
+
+        const user = parseUserFromJwt(accessToken);
+        if (user) {
+            setToken(accessToken);
+            setUser(user);
+            setIsSuccess(true);
+            window.location.href = '/';
+        } else {
+            addNotification('Не удалось распознать пользователя', NotificationTypes.Error);
+        }
+    };
+    
     const register = async (data: TRegisterData) => {
+        setIsLoading(true);
+        setIsSuccess(false);
+
         try {
-            setIsLoading(true);
             const authData = omit(data, 'passwordConfirm');
             const result = await authRegister(authData);
 
-            if (result.isSuccess) {
-                setIsSuccess(true);
-                addNotification(result.message ?? '', NotificationTypes.Success);
-            } else {
-                setIsSuccess(false);
-                addNotification(result.message ?? '', NotificationTypes.Error);
+            if (!result.isSuccess) {
+                handleError(result.message ?? 'Ошибка регистрации');
+                return;
             }
+
+            setIsSuccess(true);
+            addNotification(result.message ?? 'Регистрация прошла успешно. Вам на почту было отправлено письмо с дальнейшей инструкцией', NotificationTypes.Success);
         } catch (error) {
-            setIsSuccess(false);
-            
-            let response = getResponseFromAxiosError(error);
-            addNotification(response.message, NotificationTypes.Error);
+            const response = getResponseFromAxiosError(error);
+            handleError(response.message);
         } finally {
             setIsLoading(false);
         }
+    };
+    
+    const handleError = (message: string) => {
+        setIsSuccess(false);
+        addNotification(message, NotificationTypes.Error);
     };
 
     const logout = async () => {

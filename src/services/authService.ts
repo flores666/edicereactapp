@@ -3,6 +3,7 @@ import type {TResponse} from '@/models/Response';
 import type {TLoginData} from '@/models/Auth';
 
 import {authService} from '@/config/instance';
+import type {TAuthorizationToken} from "@/models/AuthorizationToken";
 
 export const authRegister = async (data: TRegisterData) => {
     const result = await authService.post<TResponse<null>>('/register', data);
@@ -10,6 +11,6 @@ export const authRegister = async (data: TRegisterData) => {
 };
 
 export const authLogin = async (data: TLoginData) => {
-    const result = await authService.post<TResponse<string>>('/login', data);
+    const result = await authService.post<TResponse<TAuthorizationToken>>('/login', data);
     return result.data;
 };
