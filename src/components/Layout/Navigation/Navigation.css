@@ -15,6 +15,7 @@
   opacity: 1;
   padding: 0 20px 0 6px;
   max-width: fit-content;
+  margin-left: 4px;
 }
 .navigation-container ul {
   display: flex;
@@ -49,7 +50,7 @@
   transition: opacity 0.1s ease, max-width 0.1s ease, padding 0.1s ease;
 }
 .navigation-container li a img {
-  height: 24px;
-  width: 24px;
+  height: 20px;
+  width: 20px;
 }
 /*# sourceMappingURL=Navigation.css.map */
