@@ -25,7 +25,6 @@
 }
 .navigation-container li {
   border-radius: 6px;
-  padding: 6px;
   align-items: center;
   transition: background-color 0.3s ease;
 }
@@ -42,6 +41,7 @@
   text-decoration: none;
   display: flex;
   align-items: center;
+  padding: 6px;
 }
 .navigation-container li a span:last-child {
   opacity: 0;
