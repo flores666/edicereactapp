@@ -1,19 +1,20 @@
 import type {TRegisterData} from '@/models/Auth';
 import type {TLoginData} from '@/models/Auth';
+import type { TResponse } from '@/models/Response';
 import type {TUser} from '@/models/User';
 
 import {createContext} from 'react';
+import type {TAuthorizationToken} from "@/models/AuthorizationToken";
 
 interface IAuthContext {
     user: TUser | null;
     token: string | null;
     isLoading: boolean;
     isAuthorized: boolean;
-    isSuccess: boolean;
     actions: {
-        authLogin: (data: TLoginData) => void;
-        authRegister: (data: TRegisterData) => void;
-        authLogout: () => void;
+        authLogin: (data: TLoginData) => Promise<TResponse<TAuthorizationToken | null>>;
+        authRegister: (data: TRegisterData) => Promise<TResponse<null>>;
+        authLogout: () => Promise<TResponse<null>>;
     };
 }
 
@@ -22,13 +23,33 @@ export const AuthContext = createContext<IAuthContext>({
     token: null,
     isLoading: false,
     isAuthorized: false,
-    isSuccess: false,
     actions: {
-        authLogin: () => {
+        authLogin: () : Promise<TResponse<TAuthorizationToken | null>> => {
+            return new Promise<TResponse<TAuthorizationToken | null>>(() => {
+                return {
+                    isSuccess: false,
+                    message: '',
+                    data: null
+                };
+            })
         },
-        authRegister: () => {
+        authRegister: () : Promise<TResponse<null>> => {
+            return new Promise<TResponse<null>>(() => {
+                return {
+                    isSuccess: false,
+                    message: '',
+                    data: null
+                };
+            })
         },
-        authLogout: () => {
+        authLogout: () : Promise<TResponse<null>> => {
+            return new Promise<TResponse<null>>(() => {
+                return {
+                    isSuccess: false,
+                    message: '',
+                    data: null
+                };
+            })
         },
     },
 });

@@ -1,15 +1,14 @@
-import type {TRegisterData} from '@/models/Auth';
-import type {TLoginData} from '@/models/Auth';
+import type {TLoginData, TRegisterData} from '@/models/Auth';
 import type {ReactNode} from 'react';
-
-import {useToken, useUser, useUserActions, useUserStore} from '@/store/User';
-import {authLogin, authRegister} from '@/services/authService';
-import {AuthContext} from '@/providers/Auth/AuthContext';
 import {useEffect, useState} from 'react';
-import {getResponseFromAxiosError, isNullOrEmpty, parseUserFromJwt} from '@/utils';
+
+import {useToken, useUser, useUserStore} from '@/store/User';
+import {authLogin, authLogout, authRegister} from '@/services/authService';
+import {AuthContext} from '@/providers/Auth/AuthContext';
+import {getResponseFromAxiosError, isNullOrEmpty} from '@/utils';
 import {omit} from 'lodash';
-import {useNotifications} from '../Notifications/NotificationsProvider';
-import {NotificationTypes} from "@/providers/Notifications/NotificationIcons.tsx";
+import type {TAuthorizationToken} from "@/models/AuthorizationToken";
+import type {TResponse} from "@/models/Response";
 
 interface IAuthProvider {
     children: ReactNode;
@@ -18,83 +17,45 @@ interface IAuthProvider {
 export function AuthProvider({children}: IAuthProvider) {
     const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
     const user = useUser();
     const token = useToken();
-    const {setUser, setToken} = useUserActions();
-    const {addNotification} = useNotifications();
 
-    const login = async (data: TLoginData) => {
+    const login = async (data: TLoginData): Promise<TResponse<TAuthorizationToken | null>> => {
         setIsLoading(true);
-        setIsSuccess(false);
 
         try {
-            const result = await authLogin(data);
-
-            if (!result.isSuccess || isNullOrEmpty(result.data)) {
-                handleError(result.message ?? 'Ошибка авторизации');
-                return;
-            }
-
-            handleLoginSuccess(result.data.accessToken);
+            return await authLogin(data);
         } catch (error) {
-            const response = getResponseFromAxiosError(error);
-            addNotification(response.message, NotificationTypes.Error);
+            return getResponseFromAxiosError(error);
         } finally {
             setIsLoading(false);
         }
     };
 
-    const handleLoginSuccess = (accessToken: string) => {
-        setToken(accessToken);
-
-        const user = parseUserFromJwt(accessToken);
-        if (user) {
-            setToken(accessToken);
-            setUser(user);
-            setIsSuccess(true);
-            window.location.href = '/';
-        } else {
-            addNotification('Не удалось распознать пользователя', NotificationTypes.Error);
-        }
-    };
-    
-    const register = async (data: TRegisterData) => {
+    const register = async (data: TRegisterData): Promise<TResponse<null>> => {
         setIsLoading(true);
-        setIsSuccess(false);
 
         try {
             const authData = omit(data, 'passwordConfirm');
-            const result = await authRegister(authData);
-
-            if (!result.isSuccess) {
-                handleError(result.message ?? 'Ошибка регистрации');
-                return;
-            }
-
-            setIsSuccess(true);
-            addNotification(result.message ?? 'Регистрация прошла успешно. Вам на почту было отправлено письмо с дальнейшей инструкцией', NotificationTypes.Success);
+            return await authRegister(authData);
         } catch (error) {
-            const response = getResponseFromAxiosError(error);
-            handleError(response.message);
+            return getResponseFromAxiosError(error);
         } finally {
             setIsLoading(false);
         }
     };
-    
-    const handleError = (message: string) => {
-        setIsSuccess(false);
-        addNotification(message, NotificationTypes.Error);
-    };
 
-    const logout = async () => {
+    const logout = async (): Promise<TResponse<null>> => {
         try {
             setIsLoading(true);
-            useUserStore.persist.clearStorage();
-            console.log('Случился Логаут');
+
+            const response = await authLogout()
+            if (response.isSuccess) useUserStore.persist.clearStorage();
+
+            return response;
         } catch (error) {
-            console.log(error);
+            return getResponseFromAxiosError(error);
         } finally {
             setIsLoading(false);
         }
@@ -112,14 +73,12 @@ export function AuthProvider({children}: IAuthProvider) {
                 token,
                 isLoading,
                 isAuthorized,
-                isSuccess,
                 actions: {
                     authLogin: login,
                     authRegister: register,
                     authLogout: logout,
                 },
-            }}
-        >
+            }}>
             {children}
         </AuthContext.Provider>
     );

@@ -10,6 +10,10 @@ import {useForm} from 'react-hook-form';
 import '@/components/Authorization/AuthorizationForm.css';
 import {ButtonColors} from "@/components/Button/ButtonColors.tsx";
 import {ButtonStates} from "@/components/Button/ButtonStates.tsx";
+import {useNotifications} from "@/providers/Notifications/NotificationsProvider.tsx";
+import {NotificationTypes} from "@/providers/Notifications/NotificationIcons.tsx";
+import {isNullOrEmpty, parseUserFromJwt} from "@/utils";
+import {useUserActions} from "@/store/User";
 
 export function LoginForm() {
     const {
@@ -21,9 +25,28 @@ export function LoginForm() {
     });
 
     const auth = useAuth();
+    const {addNotification} = useNotifications();
+    const {setUser, setToken} = useUserActions();
+    
+    const onSubmit = async (data: TLoginForm) => {
+        const result = await auth.actions.authLogin(data);
+
+        if (result.isSuccess && !isNullOrEmpty(result.data)) {
+            const user = parseUserFromJwt(result.data.accessToken);
+            
+            if (user) {
+                setToken(result.data.accessToken);
+                setUser(user);
+            } else {
+                addNotification('Не удалось распознать пользователя', NotificationTypes.Error);
+            }
+        } else {
+            addNotification(result.message ?? 'Ошибка авторизации', isNullOrEmpty(result.reason) ? NotificationTypes.Error : NotificationTypes.Info);
+        }
+    };
 
     return (
-        <form onSubmit={handleSubmit(auth.actions.authLogin)} className="card">
+        <form onSubmit={handleSubmit(onSubmit)} className="card">
             <span className="title">
                 <h1>Войти в аккаунт</h1>
             </span>
@@ -55,11 +78,7 @@ export function LoginForm() {
             <Button
                 type="submit"
                 color={ButtonColors.White}
-                state={auth.isLoading ? ButtonStates.Disabled : ButtonStates.Active}
-                style={{
-                    width: '100%',
-                    marginTop: '1rem'
-                }}>
+                state={auth.isLoading ? ButtonStates.Disabled : ButtonStates.Active}>
                 {auth.isLoading ? 'Загрузка...' : 'Войти'}
             </Button>
         </form>

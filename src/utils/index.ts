@@ -12,7 +12,7 @@ export const isNullOrEmpty = (value: any): value is null | undefined => {
 };
 
 // Достает TResponse<T> из ошибки отправки запроса axios
-export function getResponseFromAxiosError<T>(error: unknown): TResponse<T> {
+export function getResponseFromAxiosError(error: unknown): TResponse<null> {
     if (
         typeof error === 'object' &&
         error !== null &&
@@ -52,20 +52,19 @@ export function parseUserFromJwt(jwt: string): TUser | null {
         "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress": "email",
         "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name": "name",
     };
-    
+
     try {
         let decoded = jwtDecode(jwt);
 
         const user: Partial<TUser> = {};
-        
+
         for (const [claim, key] of Object.entries(CLAIM_MAP)) {
             // @ts-ignore
             user[key] = decoded[claim];
         }
-        
+
         return user as TUser;
-    }
-    catch (error) {
+    } catch (error) {
         console.log(error);
         return null;
     }
