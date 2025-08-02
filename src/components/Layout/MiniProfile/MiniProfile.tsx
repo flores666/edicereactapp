@@ -3,22 +3,19 @@ import {Link} from 'react-router-dom';
 
 import '@/components/Layout/MiniProfile/MiniProfile.css';
 import {ButtonColors} from "@/components/Button/ButtonColors.tsx";
+import {useAuth} from "@/providers/Auth";
 
 export function MiniProfile() {
-    const isAuthenticated = false;
-    const userName = 'P.Diddler';
-    const profilePictureUrl = '';
+    const auth = useAuth();
+    
+    const baseProfilePicture = 'src/assets/images/knight.png';
 
     const authenticatedResult = () => {
         return (
-            <a href="/user" className="mini-profile-container">
-                <span>{userName}</span>
-                {profilePictureUrl === '' ? (
-                    <div className="no-pic"></div>
-                ) : (
-                    <img src={profilePictureUrl} alt="no photo"/>
-                )}
-            </a>
+            <Link to="/user" className="mini-profile-container">
+                <span>{auth.user?.name}</span>
+                <img src={baseProfilePicture} alt="no photo"/>
+            </Link>
         );
     };
 
@@ -35,7 +32,6 @@ export function MiniProfile() {
         );
     };
 
-    if (isAuthenticated) return authenticatedResult();
-
+    if (auth.isAuthorized) return authenticatedResult();
     return notAuthenticatedResult();
 }

@@ -1,1 +1,1 @@
-{"version":3,"sources":["MiniProfile.less"],"names":[],"mappings":"AAAA;EACE,aAAA;EACA,SAAA;;AAEA,uBAAC;EACC,SAAA;;AALJ,uBAQE;AARF,uBAQO;EACH,WAAA;EACA,YAAA;;AAVJ,uBAaE;EACE,yBAAA;EACA,kBAAA","file":"MiniProfile.css"}
+{"version":3,"sources":["MiniProfile.less"],"names":[],"mappings":"AAAA;EACI,aAAA;EACA,SAAA;;AAEA,uBAAC;EACG,SAAA;;AALR,uBAQI;AARJ,uBAQS;EACD,WAAA;EACA,YAAA;EACA,kBAAA;;AAXR,uBAcI;EACI,gBAAA;EACA,gBAAA","file":"MiniProfile.css"}

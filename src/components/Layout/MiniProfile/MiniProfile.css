@@ -1,17 +1,18 @@
 .mini-profile-container {
   display: flex;
-  gap: 32px;
+  gap: 1rem;
 }
 .mini-profile-container.buttons {
   gap: 12px;
 }
 .mini-profile-container img,
 .mini-profile-container .no-pic {
-  width: 50px;
-  height: 50px;
-}
-.mini-profile-container .no-pic {
-  background-color: #18181b;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
+}
+.mini-profile-container span {
+  max-width: 305px;
+  overflow: hidden;
 }
 /*# sourceMappingURL=MiniProfile.css.map */
