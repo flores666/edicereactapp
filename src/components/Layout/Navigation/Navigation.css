@@ -19,11 +19,12 @@
 .navigation-container ul {
   display: flex;
   flex-direction: column;
-  gap: 4px;
   height: 100%;
 }
 .navigation-container li {
   border-radius: 6px;
+  padding: 6px;
+  align-items: center;
   transition: background-color 0.3s ease;
 }
 .navigation-container li:last-child {
@@ -47,7 +48,7 @@
   transition: opacity 0.1s ease, max-width 0.1s ease, padding 0.1s ease;
 }
 .navigation-container li a img {
-  height: 36px;
-  width: 36px;
+  height: 24px;
+  width: 24px;
 }
 /*# sourceMappingURL=Navigation.css.map */
