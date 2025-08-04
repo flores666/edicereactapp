@@ -42,7 +42,7 @@ export function LoginForm() {
                 setUser(user);
                 setCookie('rt', result.data.refreshToken, {
                     days: 14,
-                    domain: window.location.host
+                    domain: window.location.hostname
                 });
                 navigate(searchParams.get('returnUrl') ?? '/');
             } else {
