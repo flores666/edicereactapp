@@ -21,9 +21,9 @@ export function NavigationList({items}: INavigationListProps) {
                 <NavigationItem key={item.href} item={item}/>
             ))}
             <li>
-                <Link to={auth.isAuthorized ? '' : '/login'} onClick={onClick}>
+                <Link to={auth.isAuthorized ? '' : '/login'} onClick={onClick} draggable="false">
                     <span>
-                        <img src={auth.isAuthorized ? 'src/assets/icons/logout.svg' : 'src/assets/icons/login.svg'} alt="icon"/>
+                        <img src={auth.isAuthorized ? 'src/assets/icons/logout.svg' : 'src/assets/icons/login.svg'} alt="icon" draggable="false"/>
                     </span>
                     <span>{auth.isAuthorized ? 'Выйти' : 'Войти'}</span>
                 </Link>

@@ -16,9 +16,9 @@ export function NavigationItem({item}: INavigationItemProps) {
 
     return (
         <li className={isActive(item.href)}>
-            <Link to={item.href}>
+            <Link to={item.href} draggable="false">
                 <span>
-                  <img src={item.image} alt="icon"/>
+                  <img src={item.image} alt="icon" draggable="false"/>
                 </span>
                 <span className="text">{item.text}</span>
             </Link>
