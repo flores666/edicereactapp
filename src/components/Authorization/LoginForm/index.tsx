@@ -12,7 +12,7 @@ import {ButtonColors} from "@/components/Button/ButtonColors.tsx";
 import {ButtonStates} from "@/components/Button/ButtonStates.tsx";
 import {useNotifications} from "@/providers/Notifications/NotificationsProvider.tsx";
 import {NotificationTypes} from "@/providers/Notifications/NotificationIcons.tsx";
-import {isNullOrEmpty, parseUserFromJwt, setCookie} from "@/utils";
+import {isNullOrEmpty, parseUserFromJwt} from "@/utils";
 import {useUserActions} from "@/store/User";
 import {useNavigate, useSearchParams} from 'react-router-dom';
 
@@ -40,10 +40,6 @@ export function LoginForm() {
             if (user) {
                 setToken(result.data.accessToken);
                 setUser(user);
-                setCookie('rt', result.data.refreshToken, {
-                    days: 30,
-                    domain: window.location.hostname
-                });
                 navigate(searchParams.get('returnUrl') ?? '/');
             } else {
                 addNotification('Не удалось распознать пользователя', NotificationTypes.Error);
