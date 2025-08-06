@@ -20,7 +20,7 @@ attachTokenRefreshInterceptor(authInstance, {
     setTokens: ({accessToken, refreshToken}) => {
         useUserStore.getState().actions.setToken(accessToken);
         setCookie('rt', refreshToken, {
-            days: 14, 
+            days: 30, 
             domain: window.location.hostname
         });
     },

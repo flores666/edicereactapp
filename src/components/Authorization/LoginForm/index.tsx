@@ -41,7 +41,7 @@ export function LoginForm() {
                 setToken(result.data.accessToken);
                 setUser(user);
                 setCookie('rt', result.data.refreshToken, {
-                    days: 14,
+                    days: 30,
                     domain: window.location.hostname
                 });
                 navigate(searchParams.get('returnUrl') ?? '/');
