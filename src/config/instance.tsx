@@ -27,8 +27,7 @@ attachTokenRefreshInterceptor(authInstance, {
     onLogout: () => {
         useUserStore.getState().actions.setToken('');
         window.location.href = '/login';
-    },
-    setBearerToken: setInstanceBearerToken,
+    }
 });
 
 export const authService = authInstance;

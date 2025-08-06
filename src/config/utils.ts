@@ -26,7 +26,6 @@ export function attachTokenRefreshInterceptor(
         refreshUrl: string;
         setTokens: SetTokensFn;
         onLogout: OnLogoutFn;
-        setBearerToken: typeof setInstanceBearerToken;
         skipHeader?: string; // чтобы избежать зацикливания
     }
 ) {
@@ -34,7 +33,6 @@ export function attachTokenRefreshInterceptor(
         refreshUrl,
         setTokens,
         onLogout,
-        setBearerToken,
         skipHeader = 'X-Skip-Interceptor',
     } = options;
 
@@ -62,7 +60,7 @@ export function attachTokenRefreshInterceptor(
                         const {accessToken, refreshToken: newRefreshToken} = response.data;
 
                         setTokens({accessToken, refreshToken: newRefreshToken});
-                        setBearerToken(instance, accessToken);
+                        setInstanceBearerToken(instance, accessToken);
 
                         onTokenRefreshed(accessToken);
                     } catch (refreshError) {
