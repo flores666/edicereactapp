@@ -20,6 +20,10 @@ export function setInstanceBearerToken(instance: AxiosInstance, token: string) {
     instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 }
 
+export function clearInstanceBearerToken(instance: AxiosInstance) {
+    delete instance.defaults.headers.common['Authorization'];
+}
+
 export function attachTokenRefreshInterceptor(
     instance: AxiosInstance,
     options: {

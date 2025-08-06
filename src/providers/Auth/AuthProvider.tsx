@@ -51,8 +51,11 @@ export function AuthProvider({children}: IAuthProvider) {
             setIsLoading(true);
 
             const response = await authLogout()
-            if (response.isSuccess) useUserStore.persist.clearStorage();
-
+            if (response.isSuccess) {
+                useUserStore.persist.clearStorage();
+                setIsAuthorized(false);
+            }
+            
             return response;
         } catch (error) {
             return getResponseFromAxiosError(error);

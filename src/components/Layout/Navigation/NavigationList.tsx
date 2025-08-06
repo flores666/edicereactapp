@@ -11,8 +11,8 @@ interface INavigationListProps {
 export function NavigationList({items}: INavigationListProps) {
     const auth = useAuth();
     
-    const onClick = () => {
-        if (auth.isAuthorized) auth.actions.authLogout()
+    const onClick = async () => {
+        if (auth.isAuthorized) await auth.actions.authLogout()
     }
     
     return (
