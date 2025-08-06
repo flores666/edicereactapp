@@ -1,6 +1,6 @@
 import {useUserStore} from '@/store/User';
 import axios from 'axios';
-import {attachTokenRefreshInterceptor, setInstanceBearerToken} from "@/config/utils.ts";
+import {attachTokenRefreshInterceptor, clearInstanceBearerToken, setInstanceBearerToken} from "@/config/utils.ts";
 
 const BACKENDURL = import.meta.env.VITE_BACKEND__URL;
 
@@ -20,8 +20,8 @@ attachTokenRefreshInterceptor(authInstance, {
         useUserStore.getState().actions.setToken(accessToken);
     },
     onLogout: () => {
-        useUserStore.getState().actions.setToken('');
-        window.location.href = '/login';
+        clearInstanceBearerToken(authService);
+        useUserStore.persist.clearStorage();
     }
 });
 

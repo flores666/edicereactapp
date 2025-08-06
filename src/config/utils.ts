@@ -59,7 +59,6 @@ export function attachTokenRefreshInterceptor(
                             headers: {[skipHeader]: 'true'},
                             withCredentials: true
                         });
-                        console.log(response);
                         
                         const {accessToken, refreshToken: newRefreshToken} = response.data;
 
