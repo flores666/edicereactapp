@@ -8,10 +8,15 @@ const authInstance = axios.create({
     baseURL: `${BACKENDURL}/auth`,
 });
 
+const assetCrafterInstance = axios.create({
+    baseURL: `${BACKENDURL}/asset-crafter`,
+});
+
 const token = useUserStore.getState().token;
 
 if (token) {
     setInstanceBearerToken(authInstance, token);
+    setInstanceBearerToken(assetCrafterInstance, token);
 }
 
 attachTokenRefreshInterceptor(authInstance, {
@@ -25,4 +30,6 @@ attachTokenRefreshInterceptor(authInstance, {
     }
 });
 
+
 export const authService = authInstance;
+export const assetCrafterService = assetCrafterInstance;

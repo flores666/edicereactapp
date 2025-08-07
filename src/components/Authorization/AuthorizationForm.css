@@ -6,6 +6,7 @@
   padding: 40px 30px;
   width: 700px;
   margin: 0 auto;
+  border-radius: 12px;
 }
 .authorization-container form .title {
   display: flex;
