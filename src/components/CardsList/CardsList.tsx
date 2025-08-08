@@ -32,6 +32,7 @@ export function CardsList() {
             itemKey={(p) => p.id}
             pageSize={20}
             renderItem={(p) => <Card {...p} />}
+            className='card-container'
         />
     );
 }

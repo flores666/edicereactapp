@@ -1,4 +1,5 @@
 import '@/components/Card/Card.css';
+import {useRef} from "react";
 
 export type TCardItem = {
     id: string;
@@ -8,17 +9,42 @@ export type TCardItem = {
 }
 
 export function Card(props: TCardItem) {
+    const cardRef = useRef<HTMLDivElement>(null);
+
+    const handleMouseMove = () => {
+        const card = cardRef.current;
+        if (!card) return;
+
+        card.style.transform = `scale(1.02)`;
+    };
+
+    const handleMouseLeave = () => {
+        const card = cardRef.current;
+        if (!card) return;
+
+        card.style.transform = "rotateX(0) rotateY(0) scale(1)";
+    };
+
     return (
-        <div className='card'>
-            <div className='card-image'>
-                {
-                    props.imageSrc 
-                        ? <img src={props.imageSrc} /> 
-                        : <img className='no-photo'/>
-                }
+        <div
+            className="card"
+            ref={cardRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+        >
+            <div className="card-image"
+                 style={{
+                     //@ts-ignore
+                     "--bg-img": `url(${props.imageSrc})`
+                 }}>
+                {props.imageSrc ? (
+                    <img crossOrigin="anonymous" src={props.imageSrc}/>
+                ) : (
+                    <img className="no-photo"/>
+                )}
             </div>
-            <div className='card-title'>{props.title}</div>
-            <div className='card-text'>{props.text}</div>
+            <h4 className="card-title">{props.title}</h4>
+            <p className="card-text muted">{props.text}</p>
         </div>
     );
 }

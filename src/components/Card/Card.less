@@ -1,0 +1,81 @@
+.card {
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    padding: 0.6rem;
+    gap: 0.5rem;
+    width: 235px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.15s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
+    
+    ::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: var(--bg-img);
+        background-size: cover;
+        background-position: center;
+        height: 270px;
+        filter: blur(100px);
+        z-index: 0;
+        opacity: 1;
+    }
+    
+    &:hover {
+        .card-image {
+            transform: scale(1.1);
+        }
+    }
+    
+    .card-image {
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        height: 215px;
+        width: 215px;
+        margin-bottom: 1rem;
+        transition: transform .4s;
+        
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+            display: block;
+            z-index: 2;
+        }
+
+        .no-photo {
+
+        }
+    }
+
+    .card-title {
+        z-index: 2;
+        font-size: 1.6rem;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        border-radius: 0;
+        padding: 0.3rem 0;
+        margin-bottom: 1rem;
+        -webkit-font-smoothing: antialiased;
+        backface-visibility: hidden;
+    }
+
+    .card-text {
+        margin: auto;
+        text-align: justify;
+        overflow: hidden;
+        text-overflow: fade;
+        height: 70px;
+        -webkit-font-smoothing: antialiased;
+        backface-visibility: hidden;
+    }
+}

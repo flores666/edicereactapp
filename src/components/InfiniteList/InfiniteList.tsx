@@ -147,7 +147,7 @@ export default function InfiniteList<T>({
 
             {loading && loader}
             {error ? <div style={{ color: "red", padding: 8 }}>Error loading data</div> : ''}
-            {!hasMore && items.length > 0 && <div style={{ padding: 12, textAlign: "center" }}>— end —</div>}
+            {!hasMore && items.length > 0 && <div style={{ padding: 12, textAlign: "center" }}></div>}
         </div>
     );
 }

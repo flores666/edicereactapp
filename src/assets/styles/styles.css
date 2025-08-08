@@ -35,9 +35,6 @@ h1 {
 h2 {
   font-size: 2em;
 }
-img {
-  max-height: 100px;
-}
 .container {
   position: relative;
   padding: 0 300px 0 300px;
@@ -99,5 +96,8 @@ input:focus {
 label[data-required]::after {
   content: ' *';
   color: red;
+}
+.muted {
+  color: #b6b6b6;
 }
 /*# sourceMappingURL=styles.css.map */
