@@ -55,16 +55,18 @@
   border-radius: 0;
   padding: 0.3rem 0;
   margin-bottom: 1rem;
-  -webkit-font-smoothing: antialiased;
   backface-visibility: hidden;
 }
 .card .card-text {
-  margin: auto;
-  text-align: justify;
-  overflow: hidden;
-  text-overflow: fade;
+  display: -webkit-box;
   height: 70px;
-  -webkit-font-smoothing: antialiased;
+  margin: auto;
+  overflow: hidden;
+  text-align: justify;
+  text-overflow: ellipsis;
+  line-clamp: 4;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
   backface-visibility: hidden;
 }
 /*# sourceMappingURL=Card.css.map */
