@@ -8,9 +8,7 @@
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  transition: transform 0.15s ease;
-  transform-style: preserve-3d;
-  will-change: transform;
+  transition: transform 0.4s ease;
 }
 .card ::before {
   content: "";
