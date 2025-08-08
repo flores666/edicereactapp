@@ -1,6 +1,6 @@
 .card {
   border-width: 1px;
-  border-color: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.15);
   border-radius: 20px;
   padding: 0.6rem;
   gap: 0.5rem;
@@ -9,18 +9,6 @@
   position: relative;
   overflow: hidden;
   transition: transform 0.4s ease;
-}
-.card ::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: var(--bg-img);
-  background-size: cover;
-  background-position: center;
-  height: 270px;
-  filter: blur(100px);
-  z-index: 0;
-  opacity: 1;
 }
 .card:hover .card-image {
   transform: scale(1.1);
@@ -35,6 +23,20 @@
   width: 215px;
   margin-bottom: 1rem;
   transition: transform 0.4s;
+  position: relative;
+}
+.card .card-image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--bg-img);
+  background-size: cover;
+  background-position: center;
+  height: 270px;
+  filter: blur(80px);
+  transform: scale(1.1);
+  z-index: 0;
+  opacity: 1;
 }
 .card .card-image img {
   width: 100%;
@@ -43,6 +45,27 @@
   border-radius: 12px;
   display: block;
   z-index: 2;
+}
+.card .card-image .card-meta {
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  bottom: 0;
+  height: 1.9rem;
+  width: 100%;
+  z-index: 2;
+}
+.card .card-image .card-meta span {
+  height: inherit;
+  width: 2rem;
+}
+.card .card-image .card-meta span.official {
+  background-image: url("src/assets/icons/verified.svg");
+  background-repeat: no-repeat;
+}
+.card .card-image .card-meta span.verified {
+  background-image: url("src/assets/icons/priority.svg");
+  background-repeat: no-repeat;
 }
 .card .card-title {
   z-index: 2;

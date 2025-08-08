@@ -15,6 +15,8 @@ export function TokensCardsList() {
                 id: item.id,
                 imageSrc: item.imageUrl,
                 text: item.description,
+                isOfficial: item.isOfficial,
+                isVerified: item.isConfirmed,
             }));
 
             return {

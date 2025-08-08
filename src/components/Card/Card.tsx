@@ -6,6 +6,8 @@ export type TCardItem = {
     title: string;
     text?: string | null;
     imageSrc?: string | null;
+    isOfficial?: boolean;
+    isVerified?: boolean;
 }
 
 export function Card(props: TCardItem) {
@@ -42,6 +44,10 @@ export function Card(props: TCardItem) {
                 ) : (
                     <img className="no-photo"/>
                 )}
+                <div className='card-meta'>
+                    {props.isOfficial ? <span className='official' title='Оффициальный контент'></span> : ''}
+                    {(props.isVerified && !props.isOfficial) ? <span className='verified' title='Подтвержденный контент сообщества'></span> : ''}
+                </div>
             </div>
             <h4 className="card-title">{props.title}</h4>
             <p className="card-text muted">{props.text}</p>

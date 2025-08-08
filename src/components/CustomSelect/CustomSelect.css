@@ -1,0 +1,61 @@
+.custom-select-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  cursor: pointer;
+}
+.custom-select-container .custom-select-selected {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+.custom-select-container .custom-select-selected::after {
+  content: "";
+  background-image: url('src/assets/icons/keyboard_down.svg');
+  background-repeat: no-repeat;
+  filter: brightness(80%);
+  transform: scale(0.8);
+  position: absolute;
+  height: 22px;
+  width: 22px;
+  right: 4px;
+}
+.custom-select-container .custom-select-dropdown {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-width: 1px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.custom-select-container .custom-select-dropdown.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.custom-select-container .custom-select-dropdown .custom-select-option {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 0;
+  transition: background-color 0.3s ease;
+  background-color: black;
+}
+.custom-select-container .custom-select-dropdown .custom-select-option:hover {
+  cursor: pointer;
+  background-color: #18181b;
+}
+.custom-select-container .custom-select-dropdown .custom-select-option:hover:first-child {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+.custom-select-container .custom-select-dropdown .custom-select-option:hover:last-child {
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+}
+/*# sourceMappingURL=CustomSelect.css.map */
