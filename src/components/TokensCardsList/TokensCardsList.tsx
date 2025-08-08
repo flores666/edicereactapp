@@ -1,9 +1,9 @@
-import '@/components/CardsList/CardsList.css';
+import '@/components/TokensCardsList/TokensCardsList.css';
 import {Card, type TCardItem} from "@/components/Card/Card.tsx";
 import InfiniteList, {type FetchParams, type FetchResult} from "@/components/InfiniteList/InfiniteList.tsx";
 import {getTokens} from "@/services/assetCrafterService.ts";
 
-export function CardsList() {
+export function TokensCardsList() {
     const fetchTokens = async ({cursor, limit}: FetchParams): Promise<FetchResult<TCardItem>> => {
         const page = cursor ? Number(cursor) : 1;
         limit ??= 20;

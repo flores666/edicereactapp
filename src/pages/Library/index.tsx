@@ -1,5 +1,5 @@
 import {useTitle} from "@/hooks/useTitle.ts";
-import {CardsList} from "@/components/CardsList/CardsList.tsx";
+import {TokensCardsList} from "@/components/TokensCardsList/TokensCardsList.tsx";
 import '@/pages/Library/Library.css';
 
 export function LibraryPage() {
@@ -19,7 +19,7 @@ export function LibraryPage() {
                         </div>
                     </div>
                 </div>
-                <CardsList></CardsList>
+                <TokensCardsList></TokensCardsList>
             </div>
         </>
     );
