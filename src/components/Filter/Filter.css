@@ -1,0 +1,16 @@
+.filter-container .filter {
+  height: 300px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.filter-container .filter .form-field {
+  width: 100%;
+  align-items: center;
+}
+.filter-container .filter .form-field input:not([type='checkbox']),
+.filter-container .filter .form-field select {
+  width: 100%;
+}
+/*# sourceMappingURL=Filter.css.map */

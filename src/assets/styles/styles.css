@@ -63,21 +63,64 @@ body::-webkit-scrollbar-thumb {
   border-radius: 8px;
 }
 button,
-input {
+input,
+select,
+.custom-select-selected {
   height: calc(2.6rem + 6px);
 }
-input {
+input,
+select,
+.custom-select-selected {
   border-width: thin;
   padding-left: 0.7rem;
   line-height: 1.5em;
   transition: outline-color 0.3s ease;
   outline: rgba(0, 0, 0, 0) solid 2px;
 }
-input.secondary {
+input.secondary,
+select.secondary,
+.custom-select-selected.secondary {
   background-color: #18181b;
 }
-input:focus {
+input:focus,
+select:focus,
+.custom-select-selected:focus {
   outline: rgba(255, 255, 255, 0.56) solid 2px;
+}
+input[type='radio'],
+select[type='radio'],
+.custom-select-selected[type='radio'],
+input[type='checkbox'],
+select[type='checkbox'],
+.custom-select-selected[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  height: 1rem;
+  width: 1rem;
+  border-width: 1px;
+  border-color: rgba(255, 255, 255, 0.55);
+  border-radius: 4px;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+input[type='radio']:focus,
+select[type='radio']:focus,
+.custom-select-selected[type='radio']:focus,
+input[type='checkbox']:focus,
+select[type='checkbox']:focus,
+.custom-select-selected[type='checkbox']:focus {
+  outline-color: transparent;
+}
+input[type='radio']:checked,
+select[type='radio']:checked,
+.custom-select-selected[type='radio']:checked,
+input[type='checkbox']:checked,
+select[type='checkbox']:checked,
+.custom-select-selected[type='checkbox']:checked {
+  background-color: white;
+  background-image: url('../icons/check_small.svg');
+  background-size: 1.4rem 1.4rem;
+  background-position: center;
 }
 .form-group {
   display: flex;
@@ -96,6 +139,10 @@ input:focus {
 label[data-required]::after {
   content: ' *';
   color: red;
+}
+label {
+  display: flex;
+  align-items: center;
 }
 .muted {
   color: #b6b6b6;
