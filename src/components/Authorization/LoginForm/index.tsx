@@ -50,7 +50,7 @@ export function LoginForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="card">
+        <form onSubmit={handleSubmit(onSubmit)}>
             <span className="title">
                 <h1>Войти в аккаунт</h1>
             </span>

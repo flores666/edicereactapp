@@ -39,7 +39,7 @@ export function RegisterForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="card">
+        <form onSubmit={handleSubmit(onSubmit)}>
             <span className="title">
                 <h1>Создать аккаунт</h1>
             </span>

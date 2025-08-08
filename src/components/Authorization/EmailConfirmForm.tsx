@@ -18,7 +18,7 @@ export function EmailConfirmForm(props: IEmailBlockProps) {
     const isTimerActive = !!timer;
 
     return (
-        <form className="card email-block">
+        <form className="email-block">
             <span className="title">
                 <h1>Подтвердите адрес электронной почты</h1>
             </span>
