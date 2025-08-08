@@ -1,18 +1,37 @@
 import '@/components/CardsList/CardsList.css';
-import {Card, type TCardItems} from "@/components/Card/Card.tsx";
+import {Card, type TCardItem} from "@/components/Card/Card.tsx";
+import InfiniteList, {type FetchParams, type FetchResult} from "@/components/InfiniteList/InfiniteList.tsx";
+import {getTokens} from "@/services/assetCrafterService.ts";
 
-interface ICardsListProps {
-    cards: TCardItems
-}
+export function CardsList() {
+    const fetchTokens = async ({cursor, limit}: FetchParams): Promise<FetchResult<TCardItem>> => {
+        const page = cursor ? Number(cursor) : 1;
+        limit ??= 20;
+        const response = await getTokens({size: limit, page: page});
 
-export function CardsList(props: ICardsListProps) {
+        if (response.isSuccess && response.data) {
+            const items: TCardItem[] = response.data.map(item => ({
+                title: item.name,
+                id: item.id,
+                imageSrc: item.imageUrl,
+                text: item.description,
+            }));
+
+            return {
+                items,
+                nextCursor: items.length > 0 ? String(page + 1) : null,
+            };
+        }
+
+        return {items: [], nextCursor: null};
+    }
+
     return (
-        <div className='cards-container'>
-            {
-                props.cards.map((card, i) => {
-                    return <Card {...card} key={i} />;
-                })
-            }
-        </div>
+        <InfiniteList
+            fetch={fetchTokens}
+            itemKey={(p) => p.id}
+            pageSize={20}
+            renderItem={(p) => <Card {...p} />}
+        />
     );
 }

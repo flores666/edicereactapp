@@ -1,12 +1,11 @@
 import '@/components/Card/Card.css';
 
 export type TCardItem = {
+    id: string;
     title: string;
     text?: string | null;
     imageSrc?: string | null;
 }
-
-export type TCardItems = Array<TCardItem>;
 
 export function Card(props: TCardItem) {
     return (
