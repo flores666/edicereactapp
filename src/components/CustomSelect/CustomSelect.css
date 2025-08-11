@@ -12,7 +12,7 @@
 }
 .custom-select-container .custom-select-selected::after {
   content: "";
-  background-image: url('src/assets/icons/keyboard_down.svg');
+  background-image: url('/src/assets/icons/keyboard_down.svg');
   background-repeat: no-repeat;
   filter: brightness(80%);
   transform: scale(0.8);

@@ -22,7 +22,7 @@
   height: 215px;
   width: 205px;
   margin-bottom: 1rem;
-  transition: transform 0.4s;
+  transition: transform 0.3s;
   position: relative;
 }
 .card .card-image::before {
@@ -34,7 +34,7 @@
   background-position: center;
   height: 270px;
   filter: blur(80px);
-  transform: scale(1.1);
+  transform: scale(1.15);
   z-index: 0;
   opacity: 1;
 }
@@ -60,11 +60,11 @@
   width: 2rem;
 }
 .card .card-image .card-meta span.official {
-  background-image: url("src/assets/icons/verified.svg");
+  background-image: url("/src/assets/icons/verified.svg");
   background-repeat: no-repeat;
 }
 .card .card-image .card-meta span.verified {
-  background-image: url("src/assets/icons/priority.svg");
+  background-image: url("/src/assets/icons/priority.svg");
   background-repeat: no-repeat;
 }
 .card .card-title {

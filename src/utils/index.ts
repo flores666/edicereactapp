@@ -2,6 +2,7 @@ import {isNil, isEmpty, isObject, isString} from 'lodash';
 import type {TResponse} from "@/models/Response";
 import type {TUser} from "@/models/User";
 import {jwtDecode} from "jwt-decode";
+import {useLocation} from "react-router-dom";
 
 export const isNullOrEmpty = (value: any): value is null | undefined => {
     if (isNil(value)) return true;
@@ -114,4 +115,11 @@ export function setCookie(
     }
 
     document.cookie = cookieStr;
+}
+
+export function isLocationMatchingHref(href: string) : boolean {
+    let location = useLocation();
+    if (href === '/') return location.pathname === href;
+
+    return location.pathname.startsWith(new URL('https://filler.blabla' + href).pathname);
 }

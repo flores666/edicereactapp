@@ -1,0 +1,22 @@
+.tabs-container {
+    width: 100%;
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: #18181b;
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.15);
+    
+    .tabs-item {
+        padding: 0.9rem 1rem;
+        background-color: white;
+        color: black;
+        transition: background-color 0.3s ease;
+        border-width: 1px;
+        
+        &.active {
+            background-color: rgb(142, 142, 142);
+        }
+    }
+}

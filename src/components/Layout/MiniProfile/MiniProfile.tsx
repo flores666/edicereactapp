@@ -8,7 +8,7 @@ import {useAuth} from "@/providers/Auth";
 export function MiniProfile() {
     const auth = useAuth();
     
-    const baseProfilePicture = 'src/assets/images/knight.png';
+    const baseProfilePicture = '/src/assets/images/knight.png';
 
     const authenticatedResult = () => {
         return (

@@ -23,7 +23,7 @@ export function NavigationList({items}: INavigationListProps) {
             <li>
                 <Link to={auth.isAuthorized ? '' : '/login'} onClick={onClick} draggable="false">
                     <span>
-                        <img src={auth.isAuthorized ? 'src/assets/icons/logout.svg' : 'src/assets/icons/login.svg'} alt="icon" draggable="false"/>
+                        <img src={auth.isAuthorized ? '/src/assets/icons/logout.svg' : '/src/assets/icons/login.svg'} alt="icon" draggable="false"/>
                     </span>
                     <span>{auth.isAuthorized ? 'Выйти' : 'Войти'}</span>
                 </Link>
