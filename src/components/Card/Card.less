@@ -1,6 +1,6 @@
 .card {
     border-width: 1px;
-    border-color: rgba(255, 255, 255, 0.15);
+    border-color: #1e1e1e;
     border-radius: 20px;
     padding: 0.6rem;
     gap: 0.5rem;
@@ -9,7 +9,8 @@
     position: relative;
     overflow: hidden;
     transition: transform 0.4s ease;
-
+    background-color: #121212;
+    
     &:hover {
         .card-image {
             transform: scale(1.1);
@@ -35,9 +36,9 @@
             background-image: var(--bg-img);
             background-size: cover;
             background-position: center;
-            height: 270px;
-            filter: blur(80px);
-            transform: scale(1.15);
+            height: 275px;
+            filter: blur(60px);
+            transform: scale(0.5);
             z-index: 0;
             opacity: 1;
         }

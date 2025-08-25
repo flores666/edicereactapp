@@ -10,12 +10,12 @@
 }
 .tabs-container .tabs-item {
   padding: 0.9rem 1rem;
-  background-color: white;
-  color: black;
-  transition: background-color 0.3s ease;
-  border-width: 1px;
+  background-color: #000000;
+  color: #d4d4d8;
+  transition: background-color 0.3s, color 0.3s;
 }
 .tabs-container .tabs-item.active {
-  background-color: #8e8e8e;
+  background-color: white;
+  color: black;
 }
 /*# sourceMappingURL=Tabs.css.map */
