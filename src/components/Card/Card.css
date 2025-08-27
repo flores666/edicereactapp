@@ -3,13 +3,30 @@
   gap: 1rem;
   flex-wrap: wrap;
 }
+.card-filler {
+  height: 100%;
+}
+.card-filler .card {
+  height: 100%;
+  background: linear-gradient(90deg, #1e1e1e 25%, #2a2a2a 50%, #1e1e1e 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
 .card {
   border-width: 1px;
   border-color: #1e1e1e;
   border-radius: 20px;
   padding: 0.6rem;
   gap: 0.5rem;
-  width: 225px;
+  width: 232px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -26,7 +43,7 @@
   justify-content: center;
   align-items: stretch;
   height: 215px;
-  width: 205px;
+  width: 212px;
   margin-bottom: 1rem;
   transition: transform 0.3s;
   position: relative;

@@ -28,8 +28,8 @@ export default function PaginatedList<T>({
                                              itemKey,
                                              pageSize = 20,
                                              className,
-                                             loader = <div style={{padding: 16, textAlign: "center"}}>Загрузка...</div>,
-                                             empty = <div style={{padding: 16, textAlign: "center"}}>Пусто</div>,
+                                             loader = <div></div>,
+                                             empty = <div></div>,
                                              onError, 
                                              reloadSignal
                                          }: PaginatedListProps<T>) {
@@ -61,6 +61,7 @@ export default function PaginatedList<T>({
             }
         }
 
+        setItems([]);
         load();
         return () => {
             isCancelled = true;

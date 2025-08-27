@@ -5,6 +5,7 @@ import {Card, type TCardItem} from "@/components/Card/Card.tsx";
 import {getTokens} from "@/services/assetCrafterService.ts";
 import {useRef, useState} from "react";
 import type {TTokenType} from "@/models/AssetCrafter";
+import { Loader } from "./Loader";
 
 interface IDefaultLibraryPageProps {
     type: TTokenType
@@ -30,6 +31,7 @@ export function Default(props: IDefaultLibraryPageProps) {
         
         const response = await getTokens(filterWithPageInfo);
         if (response.isSuccess && response.data) {
+            console.log('fetching');
             const items: TCardItem[] = response.data.items.map(item => ({
                 title: item.name,
                 id: item.id,
@@ -57,6 +59,7 @@ export function Default(props: IDefaultLibraryPageProps) {
                 fetch={fetchTokens}
                 itemKey={(p) => p.id}
                 pageSize={20}
+                loader={<Loader/>}
                 reloadSignal={reloadSignal}
                 renderItem={(p) => <Card {...p} />}
                 className='card-container'
