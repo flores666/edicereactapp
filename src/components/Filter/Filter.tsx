@@ -1,9 +1,10 @@
 import '@/components/Filter/Filter.css';
 import {useState} from "react";
 import {CustomSelect} from "@/components/CustomSelect/CustomSelect.tsx";
+import {DebouncedInput} from "@/components/DebouncedInput/DebouncedInput.tsx";
 
 export interface IFilterProps {
-    fetchFn: () => {},
+    onChange: (filterModel: Record<string, string | boolean | number | undefined>) => {},
     fields: Array<IFilterItem>
 }
 
@@ -20,6 +21,17 @@ export interface IFilterItem {
 export function Filter(props: IFilterProps) {
     const [fieldsState, setFieldsState] = useState(props.fields);
 
+    function buildModel(fields: IFilterItem[]) {
+        return fields.reduce<Record<string, string | boolean | undefined>>((acc, item) => {
+            if (item.type === "checkbox" || item.type === "radio") {
+                acc[item.id] = item.isChecked;
+            } else {
+                acc[item.id] = item.value;
+            }
+            return acc;
+        }, {});
+    }
+    
     function handleChange(index: number, value?: string) {
         const updated = [...fieldsState];
         const item = updated[index];
@@ -29,11 +41,11 @@ export function Filter(props: IFilterProps) {
         } else if (item.type === 'select' && value !== undefined) {
             item.value = value;
         } else {
-            item.value = value || item.value;
+            item.value = value ?? item.value;
         }
 
         setFieldsState(updated);
-        props.fetchFn();
+        props.onChange(buildModel(updated));
     }
 
     function getHtml(item: IFilterItem, index: number) {
@@ -46,20 +58,18 @@ export function Filter(props: IFilterProps) {
                             <input
                                 id={item.id}
                                 type={item.type}
-                                value={item.value}
                                 placeholder={item.placeholder}
                                 onChange={() => handleChange(index)}
-                                checked={item.isChecked}
+                                checked={item.isChecked ?? false}
                             />
                             {item.label}
                         </label>
                         : <input
                             id={item.id}
                             type={item.type}
-                            value={item.value}
                             placeholder={item.placeholder}
                             onChange={() => handleChange(index)}
-                            checked={item.isChecked}
+                            checked={item.isChecked ?? false}
                         />
                 );
             case 'select':
@@ -77,13 +87,13 @@ export function Filter(props: IFilterProps) {
                 return (
                     <>
                         {item.label ? <label htmlFor={item.id}>{item.label}</label> : ''}
-                        <input
+                        <DebouncedInput
                             id={item.id}
                             type={item.type}
-                            value={item.value}
+                            value={item.value ?? ''}
                             placeholder={item.placeholder}
-                            onChange={props.fetchFn}
-                        />
+                            onChangeDebounced={(value) => handleChange(index, value)}
+                        ></DebouncedInput>
                     </>
                 );
         }

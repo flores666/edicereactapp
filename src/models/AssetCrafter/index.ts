@@ -9,3 +9,9 @@ export type TToken = {
     isOfficial: boolean;
     isConfirmed: boolean;
 }
+
+export type TTokenType = {
+    id: string;
+    name: string;
+    caption: string;
+}

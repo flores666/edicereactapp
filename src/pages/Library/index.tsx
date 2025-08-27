@@ -1,8 +1,11 @@
 import {useTitle} from "@/hooks/useTitle.ts";
 import '@/pages/Library/Library.css';
-import {Tabs} from "@/components/Tabs/Tabs.tsx";
+import {type Tab, Tabs} from "@/components/Tabs/Tabs.tsx";
 import {Outlet} from "react-router-dom";
 import type {IFilterItem} from "@/components/Filter/Filter.tsx";
+import {useEffect, useState} from "react";
+import {getTokenTypes} from "@/services/assetCrafterService";
+import {toPlural} from "@/utils";
 
 export let filterDefaultItems: Array<IFilterItem> = [
     {
@@ -13,15 +16,14 @@ export let filterDefaultItems: Array<IFilterItem> = [
     {
         id: 'sort',
         type: 'select',
-        placeholder: 'Сортировка',
         options: [
             {
-                label: 'Сначала подтвержденные',
-                value: 'confirmed',
+                label: 'Сначала новые',
+                value: 'newFirst',
             },
             {
-                label: 'Сначала официальные',
-                value: 'official',
+                label: 'Сначала старые',
+                value: 'oldFirst',
             },
             {
                 label: 'По алфавиту А-Я',
@@ -30,6 +32,14 @@ export let filterDefaultItems: Array<IFilterItem> = [
             {
                 label: 'По алфавиту Я-А',
                 value: 'desc',
+            },
+            {
+                label: 'Сначала подтвержденные',
+                value: 'confirmed',
+            },
+            {
+                label: 'Сначала официальные',
+                value: 'official',
             }
         ],
         isChecked: true,
@@ -49,24 +59,26 @@ export let filterDefaultItems: Array<IFilterItem> = [
 
 export function LibraryPage() {
     useTitle('eDice - Игровая библиотека');
+    const [tabsProps, setTabsProps] = useState<Array<Tab>>([]);
+
+    useEffect(() => {
+        let tabs: Array<Tab> = [];
+        getTokenTypes().then(response => {
+            if (response.data != null) {
+                response.data.sort((a, b) => a.caption > b.caption ? -1 : 1).map(item => tabs.push({
+                    link: `/library/${item.name}`,
+                    title: toPlural(item.caption)
+                }))
+                
+                setTabsProps(tabs);
+            }
+        });
+    }, []);
 
     return (
         <>
             <h1>Игровая библиотека</h1>
-            <Tabs tabs={[
-                {
-                    title: 'Персонажи',
-                    link: '/library/characters',
-                },
-                {
-                    title: 'Предметы',
-                    link: '/library/items',
-                },
-                {
-                    title: 'Игровые локации',
-                    link: '/library/maps',
-                }
-            ]}></Tabs>
+            <Tabs tabs={tabsProps}></Tabs>
             <Outlet></Outlet>
         </>
     );

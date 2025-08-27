@@ -12,9 +12,7 @@ import {
     LoginPage,
     HomePage,
 } from '@/pages';
-import {Characters} from "@/pages/Library/Characters.tsx";
-import {Items} from "@/pages/Library/Items.tsx";
-import {Maps} from "@/pages/Library/Maps.tsx";
+import {Character} from "@/pages/Library/Character.tsx";
 
 const configureAuthRoutes = () => {
     const authRoutes: Array<RouteObject> = [
@@ -55,19 +53,11 @@ export const router = createBrowserRouter([
                 children: [
                     {
                         index: true,
-                        element: <Navigate to="characters" replace />
+                        element: <Navigate to="character" replace />
                     },
                     {
-                        path: 'characters',
-                        element: <Characters/>,
-                    },
-                    {
-                        path: 'items',
-                        element: <Items/>,
-                    },
-                    {
-                        path: 'maps',
-                        element: <Maps/>,
+                        path: 'character',
+                        element: <Character/>,
                     }
                 ]
             },

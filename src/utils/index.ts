@@ -71,55 +71,32 @@ export function parseUserFromJwt(jwt: string): TUser | null {
     }
 }
 
-interface CookieOptions {
-    days?: number;
-    path?: string;
-    domain?: string;
-    secure?: boolean;
-    sameSite?: "Strict" | "Lax" | "None";
-    // httpOnly — только для серверной установки, браузер его проигнорирует
-    httpOnly?: boolean;
-}
-
-export function setCookie(
-    name: string,
-    value: string,
-    options: CookieOptions = {}
-) {
-    let cookieStr = `${encodeURIComponent(name)}=${encodeURIComponent(value)}`;
-
-    if (options.days) {
-        const date = new Date();
-        date.setTime(date.getTime() + options.days * 24 * 60 * 60 * 1000);
-        cookieStr += `; expires=${date.toUTCString()}`;
-    }
-
-    cookieStr += `; path=${options.path || "/"}`;
-
-    if (options.domain) {
-        cookieStr += `; domain=${options.domain}`;
-    }
-
-    // Установка Secure автоматически, если сайт открыт по HTTPS
-    const isHttps = window.location.protocol === "https:";
-    if (options.secure ?? isHttps) {
-        cookieStr += `; secure`;
-    }
-
-    if (options.sameSite) {
-        cookieStr += `; samesite=${options.sameSite}`;
-    }
-
-    if (options.httpOnly) {
-        console.warn("httpOnly нельзя установить из браузера — игнорируется.");
-    }
-
-    document.cookie = cookieStr;
-}
-
 export function isLocationMatchingHref(href: string) : boolean {
     let location = useLocation();
     if (href === '/') return location.pathname === href;
 
     return location.pathname.startsWith(new URL('https://filler.blabla' + href).pathname);
+}
+
+export function toPlural(str: string) {
+    const words = str.split(' ');
+    let result: string[] = [];
+    
+    words.forEach(word => {
+        if (word.endsWith('а')) result.push(word.slice(0, -1) + 'ы');
+        else if (word.endsWith('мя')) result.push(word.slice(0, -2) + 'мена');
+        else if (word.endsWith('ое')) result.push(word.slice(0, -2) + 'ые');
+        else if (word.endsWith('я')) result.push(word.slice(0, -1) + 'и');
+        else if (word.endsWith('ь')) result.push(word + 'и');
+        else if (word.endsWith('о')) result.push(word.slice(0, -1) + 'а');
+        else if (word.endsWith('е')) result.push(word.slice(0, -1) + 'я');
+        else if (word.endsWith('й')) result.push(word.slice(0, -1) + 'и');
+        else if (word.endsWith('ь')) result.push(word.slice(0, -1) + 'и');
+        else if (word.endsWith('ж')) result.push(word.slice(0, -1) + 'жи'); 
+        else if (word.endsWith('ш')) result.push(word.slice(0, -1) + 'ши'); 
+        else if (word.endsWith('щ')) result.push(word.slice(0, -1) + 'щи'); 
+        else result.push(word + 'ы');
+    });
+    
+    return result.join(' ');
 }

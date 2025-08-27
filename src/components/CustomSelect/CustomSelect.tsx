@@ -8,7 +8,7 @@ interface CustomSelectProps {
 }
 
 export function CustomSelect({options, onChange, placeholder}: CustomSelectProps) {
-    const [selectedOption, setSelectedOption] = useState<Partial<HTMLOptionElement> | null>(null);
+    const [selectedOption, setSelectedOption] = useState<Partial<HTMLOptionElement> | null>(options[0]);
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
 

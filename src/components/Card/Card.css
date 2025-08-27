@@ -1,3 +1,8 @@
+.card-container {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
 .card {
   border-width: 1px;
   border-color: #1e1e1e;
