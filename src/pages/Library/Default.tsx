@@ -4,8 +4,13 @@ import PaginatedList, { type FetchParams, type FetchResult } from "@/components/
 import {Card, type TCardItem} from "@/components/Card/Card.tsx";
 import {getTokens} from "@/services/assetCrafterService.ts";
 import {useRef, useState} from "react";
+import type {TTokenType} from "@/models/AssetCrafter";
 
-export function Character() {
+interface IDefaultLibraryPageProps {
+    type: TTokenType
+}
+
+export function Default(props: IDefaultLibraryPageProps) {
     const [reloadSignal, setReloadSignal] = useState<number>(0);
     const filterRef = useRef<Record<string, string | boolean | number | undefined>>({});
     
@@ -17,6 +22,7 @@ export function Character() {
     const fetchTokens = async (params: FetchParams): Promise<FetchResult<TCardItem>> => {
         const filterWithPageInfo = {
             ...filterRef.current,
+            type: props.type.id,
             public: true,
             page: params.page,
             size: params.limit,

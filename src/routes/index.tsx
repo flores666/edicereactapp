@@ -1,7 +1,7 @@
 import type {RouteObject} from 'react-router-dom';
 
 import {PrivateRoute} from '@/components/PrivateRoute';
-import {createBrowserRouter, Navigate} from 'react-router-dom';
+import {createBrowserRouter} from 'react-router-dom';
 import {
     ConstructorPage,
     RegisterPage,
@@ -12,7 +12,6 @@ import {
     LoginPage,
     HomePage,
 } from '@/pages';
-import {Character} from "@/pages/Library/Character.tsx";
 
 const configureAuthRoutes = () => {
     const authRoutes: Array<RouteObject> = [
@@ -48,18 +47,8 @@ export const router = createBrowserRouter([
                 element: <LobbyPage/>,
             },
             {
-                path: '/library',
-                element: <LibraryPage/>,
-                children: [
-                    {
-                        index: true,
-                        element: <Navigate to="character" replace />
-                    },
-                    {
-                        path: 'character',
-                        element: <Character/>,
-                    }
-                ]
+                path: '/library/:tab?',
+                element: <LibraryPage/>
             },
             {
                 element: <PrivateRoute/>,
