@@ -1,11 +1,12 @@
 import {useTitle} from '@/hooks/useTitle';
+import {APP_NAME} from "@/config/constants.tsx";
 
 export function HomePage() {
-    useTitle('eDice - Платформа для проведения настольных игр');
+    useTitle(`${APP_NAME} | Платформа для проведения настольных игр`);
 
     return (
         <>
-            <h1>Добро пожаловать в eDice!</h1>
+            <h1>Добро пожаловать в {APP_NAME}!</h1>
             <p>
                 eDice — это современная онлайн-платформа для игры в настольные ролевые игры с друзьями, где
                 бы вы ни находились. Создавайте карты, бросайте кубики, управляйте персонажами и

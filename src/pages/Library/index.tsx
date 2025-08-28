@@ -8,6 +8,7 @@ import {getTokenTypes} from "@/services/assetCrafterService";
 import {toPlural} from "@/utils";
 import {Maps} from "./Maps";
 import {Default} from "@/pages/Library/Default.tsx";
+import {APP_NAME} from "@/config/constants.tsx";
 
 export let filterDefaultItems: Array<IFilterItem> = [
     {
@@ -60,7 +61,7 @@ export let filterDefaultItems: Array<IFilterItem> = [
 ]
 
 export function LibraryPage() {
-    useTitle('eDice - Игровая библиотека');
+    useTitle(`${APP_NAME} | Игровая библиотека`);
     const [tabsProps, setTabsProps] = useState<Array<Tab>>([]);
     const navigate = useNavigate();
     const {tab} = useParams();

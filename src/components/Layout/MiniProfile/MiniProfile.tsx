@@ -12,7 +12,7 @@ export function MiniProfile() {
 
     const authenticatedResult = () => {
         return (
-            <Link to="/user" className="mini-profile-container">
+            <Link to={"/profile/" + auth.user?.id} className="mini-profile-container">
                 <span>{auth.user?.name}</span>
                 <img src={baseProfilePicture} alt="no photo"/>
             </Link>
