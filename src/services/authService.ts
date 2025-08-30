@@ -3,7 +3,7 @@ import type {TResponse} from '@/models/Response';
 import type {TLoginData} from '@/models/Auth';
 
 import {authService} from '@/config/instance';
-import type {TAuthorizationToken} from "@/models/AuthorizationToken";
+import type {TAuthorizationResponse} from "@/models/AuthorizationToken";
 import {clearInstanceBearerToken, setInstanceBearerToken} from "@/config/utils.ts";
 
 export const authRegister = async (data: TRegisterData) => {
@@ -12,7 +12,7 @@ export const authRegister = async (data: TRegisterData) => {
 };
 
 export const authLogin = async (data: TLoginData) => {
-    const result = await authService.post<TResponse<TAuthorizationToken>>('/login', data, {withCredentials: true});
+    const result = await authService.post<TResponse<TAuthorizationResponse>>('/login', data, {withCredentials: true});
     if (result.data.isSuccess && result.data.data) setInstanceBearerToken(authService, result.data.data.accessToken);
     return result.data;
 };

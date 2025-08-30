@@ -1,13 +1,13 @@
-import type {TAuthorizedUser} from '@/models/User';
+import type {TUser} from '@/models/User';
 
 import {devtools, persist} from 'zustand/middleware';
 import {create} from 'zustand';
 
 interface IUserStore {
-    user: TAuthorizedUser | null;
+    user: TUser | null;
     token: string | null;
     actions: {
-        setUser: (user: TAuthorizedUser) => void;
+        setUser: (user: TUser) => void;
         setToken: (token: string) => void;
     };
 }

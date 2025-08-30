@@ -7,7 +7,7 @@ import {authLogin, authLogout, authRegister} from '@/services/authService';
 import {AuthContext} from '@/providers/Auth/AuthContext';
 import {getResponseFromAxiosError, isNullOrEmpty} from '@/utils';
 import {omit} from 'lodash';
-import type {TAuthorizationToken} from "@/models/AuthorizationToken";
+import type {TAuthorizationResponse} from "@/models/AuthorizationToken";
 import type {TResponse} from "@/models/Response";
 
 interface IAuthProvider {
@@ -21,7 +21,7 @@ export function AuthProvider({children}: IAuthProvider) {
     const user = useUser();
     const token = useToken();
 
-    const login = async (data: TLoginData): Promise<TResponse<TAuthorizationToken | null>> => {
+    const login = async (data: TLoginData): Promise<TResponse<TAuthorizationResponse | null>> => {
         setIsLoading(true);
 
         try {

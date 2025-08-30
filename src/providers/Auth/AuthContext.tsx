@@ -1,18 +1,18 @@
 import type {TRegisterData} from '@/models/Auth';
 import type {TLoginData} from '@/models/Auth';
 import type { TResponse } from '@/models/Response';
-import type {TAuthorizedUser} from '@/models/User';
+import type {TUser} from '@/models/User';
 
 import {createContext} from 'react';
-import type {TAuthorizationToken} from "@/models/AuthorizationToken";
+import type {TAuthorizationResponse} from "@/models/AuthorizationToken";
 
 interface IAuthContext {
-    user: TAuthorizedUser | null;
+    user: TUser | null;
     token: string | null;
     isLoading: boolean;
     isAuthorized: boolean;
     actions: {
-        authLogin: (data: TLoginData) => Promise<TResponse<TAuthorizationToken | null>>;
+        authLogin: (data: TLoginData) => Promise<TResponse<TAuthorizationResponse | null>>;
         authRegister: (data: TRegisterData) => Promise<TResponse<null>>;
         authLogout: () => Promise<TResponse<null>>;
     };
@@ -24,8 +24,8 @@ export const AuthContext = createContext<IAuthContext>({
     isLoading: false,
     isAuthorized: false,
     actions: {
-        authLogin: () : Promise<TResponse<TAuthorizationToken | null>> => {
-            return new Promise<TResponse<TAuthorizationToken | null>>(() => {
+        authLogin: () : Promise<TResponse<TAuthorizationResponse | null>> => {
+            return new Promise<TResponse<TAuthorizationResponse | null>>(() => {
                 return {
                     isSuccess: false,
                     message: '',

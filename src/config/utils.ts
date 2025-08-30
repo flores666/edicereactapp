@@ -1,8 +1,8 @@
 import axios, {AxiosError, type AxiosInstance, type AxiosRequestConfig, type AxiosResponse} from 'axios';
-import type {TAuthorizationToken} from "@/models/AuthorizationToken";
+import type {TAuthorizationResponse} from "@/models/AuthorizationToken";
 import type {TResponse} from "@/models/Response";
 
-type SetTokensFn = (tokens: TAuthorizationToken) => void;
+type SetTokensFn = (tokens: TAuthorizationResponse) => void;
 type OnLogoutFn = () => void;
 
 let isRefreshing = false;
@@ -61,7 +61,7 @@ export function attachTokenRefreshInterceptor(
                     if (!isRefreshing) {
                         isRefreshing = true;
                         try {
-                            const response = (await refreshInstance.post<TResponse<TAuthorizationToken>>(
+                            const response = (await refreshInstance.post<TResponse<TAuthorizationResponse>>(
                                 refreshUrl,
                                 {},
                                 {

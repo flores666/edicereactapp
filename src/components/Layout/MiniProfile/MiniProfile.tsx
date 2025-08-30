@@ -8,13 +8,11 @@ import {useAuth} from "@/providers/Auth";
 export function MiniProfile() {
     const auth = useAuth();
     
-    const baseProfilePicture = '/src/assets/images/knight.png';
-
     const authenticatedResult = () => {
         return (
             <Link to={"/profile/" + auth.user?.id} className="mini-profile-container">
                 <span>{auth.user?.name}</span>
-                <img src={baseProfilePicture} alt="no photo"/>
+                <img src={auth.user?.profilePicturePreview ?? '/src/assets/images/user_filler.png'} alt="no photo"/>
             </Link>
         );
     };

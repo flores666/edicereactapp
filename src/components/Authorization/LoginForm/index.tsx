@@ -12,7 +12,7 @@ import {ButtonColors} from "@/components/Button/ButtonColors.tsx";
 import {ButtonStates} from "@/components/Button/ButtonStates.tsx";
 import {useNotifications} from "@/providers/Notifications/NotificationsProvider.tsx";
 import {NotificationTypes} from "@/providers/Notifications/NotificationIcons.tsx";
-import {isNullOrEmpty, parseUserFromJwt} from "@/utils";
+import {isNullOrEmpty} from "@/utils";
 import {useUserActions} from "@/store/User";
 import {useNavigate, useSearchParams} from 'react-router-dom';
 
@@ -35,7 +35,7 @@ export function LoginForm() {
         const result = await auth.actions.authLogin(data);
 
         if (result.isSuccess && !isNullOrEmpty(result.data)) {
-            const user = parseUserFromJwt(result.data.accessToken);
+            const user = result.data.user;
             
             if (user) {
                 setToken(result.data.accessToken);

@@ -11,24 +11,25 @@
         height: 350px;
         display: flex;
         gap: 2rem;
-        
+
         .profile-image-container {
             height: 100%;
             width: 318px;
-            
+
             :first-child {
                 height: 100%;
-
+                object-fit: cover;
+                
                 &.no-photo {
                     background-color: #000000;
                 }
             }
         }
-        
+
         .profile-info {
             height: 100%;
             width: calc(100% - 318px);
-            
+
             :first-child {
                 height: 100%;
             }

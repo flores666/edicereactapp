@@ -1,6 +1,6 @@
 import {isNil, isEmpty, isObject, isString} from 'lodash';
 import type {TResponse} from "@/models/Response";
-import type {TAuthorizedUser} from "@/models/User";
+import type {TUser} from "@/models/User";
 import {jwtDecode} from "jwt-decode";
 import {useLocation} from "react-router-dom";
 
@@ -47,8 +47,8 @@ export function getResponseFromAxiosError(error: unknown): TResponse<null> {
 }
 
 // Парсит jwt "eyJ0eXAiO..." в модель пользователя
-export function parseUserFromJwt(jwt: string): TAuthorizedUser | null {
-    const CLAIM_MAP: Record<string, keyof TAuthorizedUser> = {
+export function parseUserFromJwt(jwt: string): TUser | null {
+    const CLAIM_MAP: Record<string, keyof TUser> = {
         "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier": "id",
         "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress": "email",
         "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name": "name",
@@ -57,14 +57,14 @@ export function parseUserFromJwt(jwt: string): TAuthorizedUser | null {
     try {
         let decoded = jwtDecode(jwt);
 
-        const user: Partial<TAuthorizedUser> = {};
+        const user: Partial<TUser> = {};
 
         for (const [claim, key] of Object.entries(CLAIM_MAP)) {
             // @ts-ignore
             user[key] = decoded[claim];
         }
 
-        return user as TAuthorizedUser;
+        return user as TUser;
     } catch (error) {
         console.log(error);
         return null;
