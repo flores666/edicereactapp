@@ -1,9 +1,10 @@
-import type { ReactNode } from 'react';
+import type {ReactNode} from 'react';
 
 interface IContainerProps {
-  children: ReactNode;
+    id?: string;
+    children: ReactNode;
 }
 
-export function Container({ children }: IContainerProps) {
-  return <div className="container">{children}</div>;
+export function Container({children, id}: IContainerProps) {
+    return <div id={id} className="container">{children}</div>;
 }

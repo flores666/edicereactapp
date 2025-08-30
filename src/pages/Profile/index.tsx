@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import {ProfileService} from "@/services/profileService.ts";
 import {useParams} from "react-router-dom";
 import type {TUser} from "@/models/User";
+import {Button} from "@/components/Button/Button.tsx";
 
 export function ProfilePage() {
     const [user, setUser] = useState<TUser | null>(null);
@@ -39,8 +40,26 @@ export function ProfilePage() {
                 </div>
             </div>
             <div className='profile-container'>
-                <div className='left'></div>
-                <div className='right'></div>
+                <div className='left'>
+                    <div className='profile-tokens'>
+                        <div className='header'>
+                            <h2>Коллекция</h2>
+                            <Button color={"white"}>Посмотреть все</Button>
+                        </div>
+                        <div className='content'>
+                            <div className='token'>
+                                <img src='/src/assets/images/knight.png'></img>
+                            </div>
+                            <div className='token'>
+                                <img src='/src/assets/images/knight.png'></img>
+                            </div>
+                            <div className='token'>
+                                <img src='/src/assets/images/knight.png'></img>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className='right'>online</div>
             </div>
         </div>
     );

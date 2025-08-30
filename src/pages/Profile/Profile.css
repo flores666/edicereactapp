@@ -1,5 +1,6 @@
 .profile-page {
   display: flex;
+  flex-direction: column;
   gap: 1rem;
 }
 .profile-page .general-info {
@@ -32,6 +33,37 @@
 }
 .profile-page .profile-container {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 350px;
+  gap: 1rem;
+  height: auto;
+}
+.profile-page .profile-container > div {
+  background-color: #18181b;
+  border-width: 1px;
+  border-color: rgba(255, 255, 255, 0.15);
+  padding: 1rem;
+  height: max-content;
+}
+.profile-page .profile-container .left .profile-tokens {
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.profile-page .profile-container .left .profile-tokens .header {
+  display: flex;
+  justify-content: space-between;
+}
+.profile-page .profile-container .left .profile-tokens .content {
+  display: flex;
+  justify-content: space-between;
+}
+.profile-page .profile-container .left .profile-tokens .content .token {
+  height: 100%;
+  width: 295px;
+}
+.profile-page .profile-container .left .profile-tokens .content .token img {
+  height: 100%;
+  object-fit: cover;
 }
 /*# sourceMappingURL=Profile.css.map */

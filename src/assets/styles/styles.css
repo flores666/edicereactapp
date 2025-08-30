@@ -18,7 +18,8 @@ body,
 }
 body {
   min-height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 h1,
 h2,
@@ -39,7 +40,9 @@ h2 {
   position: relative;
   padding: 0 300px 0 300px;
   width: 100%;
-  height: calc(100vh - 90px);
+}
+#root-container {
+  padding-bottom: 2rem;
 }
 ul {
   padding: 0;

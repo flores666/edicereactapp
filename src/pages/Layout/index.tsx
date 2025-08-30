@@ -8,7 +8,7 @@ export function RootLayout() {
         <>
             <Menu/>
             <Navigation/>
-            <Container>
+            <Container id='root-container'>
                 <Outlet/>
             </Container>
         </>
