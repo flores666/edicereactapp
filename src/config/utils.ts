@@ -1,5 +1,6 @@
 import axios, {AxiosError, type AxiosInstance, type AxiosRequestConfig, type AxiosResponse} from 'axios';
 import type {TAuthorizationToken} from "@/models/AuthorizationToken";
+import type {TResponse} from "@/models/Response";
 
 type SetTokensFn = (tokens: TAuthorizationToken) => void;
 type OnLogoutFn = () => void;
@@ -8,7 +9,7 @@ let isRefreshing = false;
 let subscribers: ((token: string) => void)[] = [];
 
 function onTokenRefreshed(token: string) {
-    subscribers.forEach(cb => cb(token));
+    subscribers.forEach((cb) => cb(token));
     subscribers = [];
 }
 
@@ -17,73 +18,86 @@ function addSubscriber(callback: (token: string) => void) {
 }
 
 export function setInstanceBearerToken(instance: AxiosInstance, token: string) {
-    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 }
 
 export function clearInstanceBearerToken(instance: AxiosInstance) {
-    delete instance.defaults.headers.common['Authorization'];
+    delete instance.defaults.headers.common["Authorization"];
 }
 
 export function attachTokenRefreshInterceptor(
-    instance: AxiosInstance,
+    instances: AxiosInstance[],
     options: {
         refreshUrl: string;
         setTokens: SetTokensFn;
         onLogout: OnLogoutFn;
-        skipHeader?: string; // чтобы избежать зацикливания
+        skipHeader?: string;
     }
 ) {
     const {
         refreshUrl,
         setTokens,
         onLogout,
-        skipHeader = 'X-Skip-Interceptor',
+        skipHeader = "X-Skip-Interceptor",
     } = options;
 
-    const refreshInstance = axios.create(); // отдельный инстанс без перехватчиков
+    const refreshInstance = axios.create();
 
-    instance.interceptors.response.use(
-        (response: AxiosResponse) => response,
-        async (error: AxiosError) => {
-            const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
+    instances.forEach((instance) => {
+        instance.interceptors.response.use(
+            (response: AxiosResponse) => response,
+            async (error: AxiosError) => {
+                const originalRequest = error.config as AxiosRequestConfig & {
+                    _retry?: boolean;
+                };
 
-            if (error.response?.status === 401 &&
-                !originalRequest._retry &&
-                !originalRequest.headers?.[skipHeader]) {
-                originalRequest._retry = true;
+                if (
+                    error.response?.status === 401 &&
+                    !originalRequest._retry &&
+                    !originalRequest.headers?.[skipHeader]
+                ) {
+                    originalRequest._retry = true;
 
-                if (!isRefreshing) {
-                    isRefreshing = true;
-                    try {
-                        const response = await refreshInstance.post<TAuthorizationToken>(refreshUrl, {
-                            headers: {[skipHeader]: 'true'},
-                            withCredentials: true
-                        });
-                        
-                        const {accessToken, refreshToken: newRefreshToken} = response.data;
+                    if (!isRefreshing) {
+                        isRefreshing = true;
+                        try {
+                            const response = (await refreshInstance.post<TResponse<TAuthorizationToken>>(
+                                refreshUrl,
+                                {},
+                                {
+                                    headers: { [skipHeader]: "true" },
+                                    withCredentials: true,
+                                }
+                            )).data;
+                            
+                            if (!response?.data?.accessToken) throw new Error('Unable to refresh token');
+                            
+                            setTokens(response.data);
 
-                        setTokens({accessToken, refreshToken: newRefreshToken});
-                        setInstanceBearerToken(instance, accessToken);
+                            instances.forEach((inst) =>
+                                setInstanceBearerToken(inst, response.data?.accessToken ?? '')
+                            );
 
-                        onTokenRefreshed(accessToken);
-                    } catch (refreshError) {
+                            onTokenRefreshed(response.data.accessToken);
+                        } catch (refreshError) {
+                            isRefreshing = false;
+                            onLogout();
+                            return Promise.reject(refreshError);
+                        }
                         isRefreshing = false;
-                        onLogout();
-                        return Promise.reject(refreshError);
                     }
-                    isRefreshing = false;
+
+                    return new Promise((resolve) => {
+                        addSubscriber((newToken: string) => {
+                            if (!originalRequest.headers) originalRequest.headers = {};
+                            originalRequest.headers["Authorization"] = "Bearer " + newToken;
+                            resolve(instance(originalRequest));
+                        });
+                    });
                 }
 
-                return new Promise((resolve, _) => {
-                    addSubscriber((newToken: string) => {
-                        if (!originalRequest.headers) originalRequest.headers = {};
-                        originalRequest.headers['Authorization'] = 'Bearer ' + newToken;
-                        resolve(instance(originalRequest));
-                    });
-                });
+                return Promise.reject(error);
             }
-
-            return Promise.reject(error);
-        }
-    );
+        );
+    });
 }

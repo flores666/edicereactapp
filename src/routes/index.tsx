@@ -12,12 +12,17 @@ import {
     LoginPage,
     HomePage,
 } from '@/pages';
+import {ProfilePage} from "@/pages/Profile";
 
 const configureAuthRoutes = () => {
     const authRoutes: Array<RouteObject> = [
         {
             path: '/constructor',
             element: <ConstructorPage/>,
+        },
+        {
+            path: '/profile/:userId',
+            element: <ProfilePage/>,
         },
     ];
     return authRoutes;

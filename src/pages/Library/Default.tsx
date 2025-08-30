@@ -31,7 +31,6 @@ export function Default(props: IDefaultLibraryPageProps) {
         
         const response = await getTokens(filterWithPageInfo);
         if (response.isSuccess && response.data) {
-            console.log('fetching');
             const items: TCardItem[] = response.data.items.map(item => ({
                 title: item.name,
                 id: item.id,

@@ -4,7 +4,7 @@ export function Loader() {
             {
                 Array.from({length: 1}).map((_, i) => (
                     <div key={i} className="card-filler">
-                        <div className="card"/>
+                        <div className="card loading"/>
                     </div>
                 ))
             }

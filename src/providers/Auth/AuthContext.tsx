@@ -1,13 +1,13 @@
 import type {TRegisterData} from '@/models/Auth';
 import type {TLoginData} from '@/models/Auth';
 import type { TResponse } from '@/models/Response';
-import type {TUser} from '@/models/User';
+import type {TAuthorizedUser} from '@/models/User';
 
 import {createContext} from 'react';
 import type {TAuthorizationToken} from "@/models/AuthorizationToken";
 
 interface IAuthContext {
-    user: TUser | null;
+    user: TAuthorizedUser | null;
     token: string | null;
     isLoading: boolean;
     isAuthorized: boolean;

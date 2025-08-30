@@ -1,0 +1,36 @@
+.profile-page {
+  display: flex;
+  gap: 1rem;
+}
+.profile-page .general-info {
+  background-color: #18181b;
+  border-width: 1px;
+  border-color: rgba(255, 255, 255, 0.15);
+  padding: 1rem;
+  width: 100%;
+  height: 350px;
+  display: flex;
+  gap: 2rem;
+}
+.profile-page .general-info .profile-image-container {
+  height: 100%;
+  width: 318px;
+}
+.profile-page .general-info .profile-image-container :first-child {
+  height: 100%;
+}
+.profile-page .general-info .profile-image-container :first-child.no-photo {
+  background-color: #000000;
+}
+.profile-page .general-info .profile-info {
+  height: 100%;
+  width: calc(100% - 318px);
+}
+.profile-page .general-info .profile-info :first-child {
+  height: 100%;
+}
+.profile-page .profile-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+/*# sourceMappingURL=Profile.css.map */
