@@ -27,7 +27,7 @@ export function LoginForm() {
 
     const auth = useAuth();
     const {addNotification} = useNotifications();
-    const {setUser, setToken} = useUserActions();
+    const actions = useUserActions();
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     
@@ -38,8 +38,8 @@ export function LoginForm() {
             const user = result.data.user;
             
             if (user) {
-                setToken(result.data.accessToken);
-                setUser(user);
+                actions.setToken(result.data.accessToken);
+                actions.setUser(user);
                 navigate(searchParams.get('returnUrl') ?? '/');
             } else {
                 addNotification('Не удалось распознать пользователя', NotificationTypes.Error);

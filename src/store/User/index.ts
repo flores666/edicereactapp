@@ -1,7 +1,6 @@
 import type {TUser} from '@/models/User';
-
-import {devtools, persist} from 'zustand/middleware';
 import {create} from 'zustand';
+import {devtools, persist} from 'zustand/middleware';
 
 interface IUserStore {
     user: TUser | null;
@@ -25,12 +24,15 @@ export const useUserStore = create<IUserStore>()(
             }),
             {
                 name: 'user',
+                partialize: (state) => ({
+                    user: state.user,
+                    token: state.token,
+                }),
             },
         ),
     ),
 );
 
 export const useUserActions = () => useUserStore((state) => state.actions);
-
 export const useUser = () => useUserStore((state) => state.user);
 export const useToken = () => useUserStore((state) => state.token);
