@@ -6,6 +6,9 @@
   font-family: 'Rubik Italic';
   src: url('/fonts/Rubik-Italic.ttf');
 }
+:root {
+  --gradient-background-gray: radial-gradient(circle at 80% 40%, rgba(255, 255, 255, 0.045), transparent 60%), linear-gradient(110deg, rgba(255, 255, 255, 0.02) 0%, rgba(0, 0, 0, 0.06) 100%), #18181B;
+}
 html,
 body,
 #root {

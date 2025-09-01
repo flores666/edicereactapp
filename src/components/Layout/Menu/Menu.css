@@ -7,7 +7,7 @@
   border-right: none;
   border-radius: 0;
   background-color: black;
-  z-index: 2;
+  z-index: 200;
   margin-bottom: 25px;
 }
 .menu-container * {
