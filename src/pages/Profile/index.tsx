@@ -48,79 +48,70 @@ export function ProfilePage() {
             <div className='profile-container'>
                 <div className='left'>
                     <div className='profile-tokens'>
-                        <div className='header'>
-                            <h2>Коллекция персонажей</h2>
-                        </div>
+                        <a href='#'>
+                            <div className='header'>
+                                <h2>Мои персонажи</h2>
+                            </div>
+                        </a>
                         <div className='content'>
-                            <div className='token'>
-                                <div className='image-container'
-                                     style={{
-                                         //@ts-ignore
-                                         "--bg-img": `url(/src/assets/images/knight.png)`
-                                     }}>
-                                    <img src='/src/assets/images/knight.png'></img>
-                                </div>
-                            </div>
-                            <div className='token'>
-                                <div className='image-container'
-                                     style={{
-                                         //@ts-ignore
-                                         "--bg-img": `url(/src/assets/images/knight.png)`
-                                     }}>
-                                    <img src='/src/assets/images/knight.png'></img>
-                                </div>
-                            </div>
-                            <div className='token'>
-                                <div className='image-container'
-                                     style={{
-                                         //@ts-ignore
-                                         "--bg-img": `url(/src/assets/images/knight.png)`
-                                     }}>
-                                    <img src='/src/assets/images/knight.png'></img>
-                                </div>
-                            </div>
+                            {Array.from({length: 6}).map((_) => (
+                                <div className='token'>
+                                    <div className='image-container'
+                                         style={{
+                                             //@ts-ignore
+                                             "--bg-img": `url(/src/assets/images/knight.png)`
+                                         }}>
+                                        <img src='/src/assets/images/knight.png'></img>
+                                        <div className='description'>Lorem Ipsum is simply dummy text of the printing
+                                            and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+                                            text ever since the 1500s, when an unknown printer took a galley of type and
+                                            scrambled it to make a type specimen book. It has survived not only five
+                                            centuries, but also the leap into electronic typesetting, remaining
+                                            essentially unchanged. It was popularised in the 1960s with the release of
+                                            Letraset sheets containing Lorem Ipsum passages, and more recently with
+                                            desktop publishing software like Aldus PageMaker including versions of Lorem
+                                            Ipsum.
+                                        </div>
+                                    </div>
+                                    <div className='title'>Рыцарь сгенерированный</div>
+                                </div>))
+                            }
                         </div>
                     </div>
                     <div className='profile-tokens'>
-                        <div className='header'>
-                            <h2>Коллекция предметов</h2>
-                        </div>
+                        <a href='#'>
+                            <div className='header'>
+                                <h2>Мои предметы</h2>
+                            </div>
+                        </a>
                         <div className='content'>
-                            <div className='token'>
-                                <div className='image-container'
-                                     style={{
-                                         //@ts-ignore
-                                         "--bg-img": `url(/src/assets/images/knight.png)`
-                                     }}>
-                                    <img src='/src/assets/images/knight.png'></img>
-                                </div>
-                            </div>
-                            <div className='token'>
-                                <div className='image-container'
-                                     style={{
-                                         //@ts-ignore
-                                         "--bg-img": `url(/src/assets/images/knight.png)`
-                                     }}>
-                                    <img src='/src/assets/images/knight.png'></img>
-                                </div>
-                            </div>
-                            <div className='token'>
-                                <div className='image-container'
-                                     style={{
-                                         //@ts-ignore
-                                         "--bg-img": `url(/src/assets/images/knight.png)`
-                                     }}>
-                                    <img src='/src/assets/images/knight.png'></img>
-                                </div>
-                            </div>
+                            {Array.from({length: 6}).map((_) => (
+                                <div className='token'>
+                                    <div className='image-container'
+                                         style={{
+                                             //@ts-ignore
+                                             "--bg-img": `url(/src/assets/images/knight.png)`
+                                         }}>
+                                        <img src='/src/assets/images/knight.png'></img>
+                                        <div className='description'>Lorem Ipsum is simply dummy text of the printing
+                                            and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+                                            text ever since the 1500s, when an unknown printer took a galley of type and
+                                            scrambled it to make a type specimen book. It has survived not only five
+                                            centuries, but also the leap into electronic typesetting, remaining
+                                            essentially unchanged. It was popularised in the 1960s with the release of
+                                            Letraset sheets containing Lorem Ipsum passages, and more recently with
+                                            desktop publishing software like Aldus PageMaker including versions of Lorem
+                                            Ipsum.
+                                        </div>
+                                    </div>
+                                    <div className='title'>Рыцарь сгенерированный</div>
+                                </div>))
+                            }
                         </div>
                     </div>
                 </div>
-                <div className='right'>
-                    <span>Сыграно игр: 2</span>
-                    <span>Добавлено токенов: 22</span>
-                    <span>Что-то там еще: 222</span>
-                </div>
+                {/*<div className='right'>*/}
+                {/*</div>*/}
             </div>
         </div>
     );
