@@ -3,10 +3,10 @@ import {useAuth} from '@/providers/Auth';
 import React from 'react';
 
 export const PrivateRoute = ({children}: { children?: React.ReactElement }) => {
-    const {isAuthorized, isLoading} = useAuth();
+    const {user, isLoading} = useAuth();
     const location = useLocation();
 
-    if (isAuthorized && !isLoading) {
+    if (user && !isLoading) {
         return children || <Outlet/>;
     }
 

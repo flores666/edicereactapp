@@ -23,7 +23,7 @@ export function ProfilePage() {
                 setLoading(false);
             });
         }
-    }, [user]);
+    }, []);
 
     return (
         <div className='profile-page'>
