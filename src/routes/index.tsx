@@ -19,11 +19,7 @@ const configureAuthRoutes = () => {
         {
             path: '/constructor',
             element: <ConstructorPage/>,
-        },
-        {
-            path: '/profile/:userId',
-            element: <ProfilePage/>,
-        },
+        }
     ];
     return authRoutes;
 };
@@ -54,6 +50,10 @@ export const router = createBrowserRouter([
             {
                 path: '/library/:tab?',
                 element: <LibraryPage/>
+            },
+            {
+                path: '/profile/:userId',
+                element: <ProfilePage/>,
             },
             {
                 element: <PrivateRoute/>,
