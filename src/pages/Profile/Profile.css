@@ -108,6 +108,9 @@
 .profile-page .profile-container .left .profile-tokens .content .token:hover {
   cursor: pointer;
 }
+.profile-page .profile-container .left .profile-tokens .content .token:hover img {
+  transform: scale(1.1);
+}
 .profile-page .profile-container .left .profile-tokens .content .token:hover .image-container .description {
   opacity: 1;
 }
@@ -117,6 +120,7 @@
 .profile-page .profile-container .left .profile-tokens .content .token .image-container {
   position: relative;
   margin-bottom: 0.5rem;
+  overflow: hidden;
 }
 .profile-page .profile-container .left .profile-tokens .content .token .image-container::before {
   content: "";
@@ -132,6 +136,7 @@
   position: relative;
   z-index: 1;
   height: 210px;
+  transition: transform 0.3s;
 }
 .profile-page .profile-container .left .profile-tokens .content .token .image-container .description {
   display: -webkit-box;
@@ -147,6 +152,7 @@
   -webkit-box-orient: vertical;
   opacity: 0;
   transition: opacity 0.3s;
+  color: #d1d1d1;
 }
 .profile-page .profile-container .left .profile-tokens .content .token .title {
   display: -webkit-box;
@@ -155,6 +161,7 @@
   line-clamp: 1;
   -webkit-box-orient: vertical;
   position: absolute;
+  color: #d1d1d1;
 }
 .profile-page .profile-container .right {
   background: var(--gradient-background-gray);
