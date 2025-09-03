@@ -142,6 +142,8 @@
                             position: relative;
                             margin-bottom: 0.5rem;
                             overflow: hidden;
+                            display: flex;
+                            justify-content: center;
                             
                             &::before {
                                 content: "";
@@ -150,7 +152,8 @@
                                 background-image: var(--bg-img);
                                 background-size: cover;
                                 background-position: center;
-                                filter: blur(60px) opacity(0.2);
+                                filter: blur(40px);
+                                transform: scale(1.5);
                                 z-index: 0;
                             }
 
@@ -158,7 +161,9 @@
                                 position: relative;
                                 z-index: 1;
                                 height: 210px;
+                                width: 100%;
                                 transition: transform 0.3s;
+                                object-fit: cover;
                             }
 
                             .description {
